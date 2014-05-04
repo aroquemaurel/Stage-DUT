@@ -1,0 +1,115 @@
+body {
+	margin: auto;
+	padding: 20px 5px;
+	width: 740px;
+	font-family: sans-serif;
+	font-size: 0.8em;
+	background-color: #F5F5F5;
+}
+
+.killTab {
+	position :relative;
+	text-align: right;
+	margin-left: 75px;
+	color: rgb(60,60,60);
+	padding-left: 2px;
+	padding-right: 2px;
+	
+}
+.killTab:hover {
+	background-color: rgb(130,130,130);
+	text-decoration: none;
+	color: rgb(200,200,200);
+}
+.searchTab {
+	position :absolute;
+	min-width: 80px;
+}
+#choixLangue {
+	position: absolute;
+	margin-left: -200px;
+	margin-top: 0px;
+}
+#footer {
+	position: fixed;
+	right: 2px;
+	left: 0px;
+	bottom: 0px;
+	background-color: rgb(236,233,216);
+}
+#langueRecherche {
+	position: fixed;
+	right: 10px;
+}
+
+#search {
+	padding: 2px 4px;
+	width: 250px; 
+	height: 22px;
+	border: 1px solid #AAA;
+}
+#optionsText {
+	margin-top: 5px;
+}
+#optionsValides {
+	margin-top: -30px;
+}
+#optionsValides, #optionsText {
+	position: absolute;
+	margin-left: 260px;
+}
+#optionsText #regex {
+	margin-left: 34px;
+}
+#divSearch{
+	margin: auto;
+	padding-bottom: 30px;
+	width : 330px;
+}
+#cstNonTrouve {
+	text-align: center;
+	width: 650px;
+	font-weight: bold;
+}
+#ajoutcstNonTrouve, #infoAncienneTable, #infoNouvelleTable, #addCstAfterSearch {
+	text-align: center;
+	width: 650px;
+}
+
+.onglet {
+	display:inline-block;
+	margin-left:3px;
+	margin-right:3px;
+	padding:3px;
+	border:1px solid black;
+	cursor:pointer;
+}
+.onglet_0 {
+	background:#bbbbbb;
+	border-bottom:1px solid black;
+}
+.onglet_1 {
+	background:#dddddd;
+	border-bottom:0px solid black;
+	padding-bottom:4px;
+}
+.contenu_onglet {
+	background-color:#dddddd;
+	border:1px solid black;
+	margin-top:-14px;
+	padding:5px;
+	display:none;
+	width: 770px;
+}
+#btnPlus {
+	margin-bottom:-7px;
+}
+ul {
+	margin-top:0px;
+	margin-bottom:0px;
+	margin-left:-10px
+}
+h1 {
+	margin:0px;
+	padding:0px;
+}

@@ -1,0 +1,66 @@
+<html>	
+<head>
+    <title>MemoLanguage - Copier vers la nouvelle table</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+	<link href="styles/global.css" rel="stylesheet" type="text/css"/>
+	<link href="styles/copyToNewTable.css" rel="stylesheet" type="text/css"/>
+		
+	 <script type="text/javascript" src="lib/AIRAliases.js"></script>
+ 	 <script type="text/javascript" src="lib/variablesGlobales.js"></script>
+	 <script type="text/javascript" src="lib/util.js"></script> 
+ 	 <script type="text/javascript" src="lib/configuration.js"></script>
+ 	 <script type="text/javascript" src="lib/traduction.js"></script>
+ 	 <script type="text/javascript" src="lib/actionsFormulaire.js"></script>
+</head>
+<body>
+<div id="changeConf">
+<p class="attention">/!\ Attention, pensez à vérifier l'ID qui à été proposé /!\</p>
+	<form method="post" >
+	   <p><label for="cst">Ancien ID : </label> <span id="ancienID"></span><br />
+	   Nouvel ID proposé : <input type="text" id="cst" class="fieldAddCstId" value="" onblur="actionCapsLock()"/> <br />
+	     Type <input type="radio" name="type" value="ITEM" id="typeItem"" /> <label for="typeItem">Item</label>
+	          <input type="radio" name="type" value="PHRA" id="typePhrase" checked=checked/> 
+	          														<label for="typePhrase">Phrase</label><br />
+	          
+     	</p>			
+     	<p id="loading"><img src="img/loading.gif" alt="" /> Chargement </p>	
+     	<div id="langTraduce"></div>								
+	      <div id="valueCst">
+		      <p id="value0"></p>
+		      <p id="value1"></p>
+		      <p id="value2"></p>
+	      </div>
+	      <div id="value"></div>
+	     <p>
+	      <input type="button" id="btnValid" value="Valider" onclick="actionValiderCopyToNewTable()" style="display:none"/> 
+	      <input type="button" id="btnCancel" value="Annuler" onclick="actionAnnulerCopyToNewTable()" style="display:none"/>
+	      <input type="hidden" id="nbLangAffichage" />
+	      
+	      <input type="hidden" id="dataLang0" />
+	      <input type="hidden" id="dataLang1" />
+	      <input type="hidden" id="dataLang2" />
+	      
+	      <input type="hidden" id="dataValid0" />
+	      <input type="hidden" id="dataValid1" />
+   	      <input type="hidden" id="dataValid2" />
+   	      
+	      <input type="hidden" id="dataValue0" />
+	      <input type="hidden" id="dataValue1" />
+	      <input type="hidden" id="dataValue2" />
+	      
+	      </p>
+	</form>
+	   <div id="nbResults"> </div>
+<div id="results">
+	<div id="infoResults">
+		<div id="infoNouvelleTable"></div>
+		<div id="infoAncienneTable"></div>
+	</div>
+	<div id="nomTable"></div>
+	<table id="tableResults"></table>
+</div> 
+	<script type="text/javascript" src="lib/recherche.js"></script>
+	<script type="text/javascript" src="lib/copyToNewTable.js"></script>
+</div>
+</body>

@@ -1,0 +1,411 @@
+\chapter{Présentation de mon activité}
+	\section{\adt{} V7}	
+	Durant ce stage, j'ai travaillé sur le produit \adt{} qui en est actuellement à sa version V7.
+
+	\adt{} est une plateforme complète de TEM\footnote{Telecom Expense Management} particulièrement adaptée au contexte des Grands Comptes.  Elle équipe également des fournisseurs de services soucieux d’apporter à leurs clients des solutions éprouvées à forte valeur ajoutée.  Entièrement modulaire, elle s’adapte aux souhaits et aux contraintes des clients et permet de gérer l’ensemble du budget et des ressources télécoms : voix et data fixes et mobiles.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=12cm]{images/2-activite/screenAdt.png}
+	\caption{\adt{} V7}
+\end{figure}
+\adt{} est un service en ligne qui, de part son architecture modulaire et sa forte industrialisation, s’adresse aussi bien aux PME\footnote{Petites et Moyennes Entreprises} qu’aux Grands Comptes et Très Grands Comptes.
+
+Fonctionnant en mode SaaS\footnote{Software as a Service}, elle peut être installée chez un client ou mutualisée dans les locaux d’un fournisseur de services ou dans ceux de \mbx{}.
+
+Cette plateforme assure une qualité irréprochable des données, chose essentielle pour une solution de TEM :
+\begin{itemize}
+\item Les grilles tarifaires des opérateurs sont en permancence à jour,
+\item Les nouveaux PABX et IPBX sont toujours pris en compte,
+\item Les nouvelles fonctions statistiques sont mis en ligne pour tous,
+\item Les nouvelles fonctionnalités sont automatiquement activées.
+\end{itemize}
+
+
+L’offre de service AUDITELcom délivrée sous forme d’un abonnement, est une solution clé en main permettant de ne pas investir en matériel et logiciel (OPEX), et de ne pas monopoliser de ressources et de compétences particulières.
+
+
+\section{Mon rôle}
+Pour mon stage, j'ai participé au développement de \adt{}. J'ai intégré l'équipe de développement composée de \Romain{} et \Denis{}, le système étant en production, il fallait faire attention à n'effectuer aucune regression de l'application,
+et effectuer suffisamment de tests avant que mes modifications soit apportés sur le serveur de production afin que les clients ne subisse aucune mésaventure.
+
+Le développement de \adt{} fut commencer dans les années 2000 et plusieurs développeurs ont apportés leur participation, ainsi, on pouvait distinguer différents style de programmation, certaines portions de code pouvait etre vieillissante.
+
+Lors de mon arrivée, \adt{} était déstiné à être multilingue, ainsi il était possible de se connecter en Français, Anglais ou Espagnol. Cependant le système qui permettait à l'application d'être multilingue n'était pas parfait, et rendait difficile la maintenance et
+la traduction de l'application. En effet, lorsque nous nous connections pour visualiser l'application en Anglais, la traduction n'était pas effective à tous les endroits, cependant la traduction n'allait pas continuer tant que le système n'était pas viable.
+
+Ainsi, mon travail fut d'étudier le système déjà développé, afin d'en retenir les erreurs qui ont été faites pour pouvoir concevoir un nouveau système qui serai beaucoup plus stable et pérenne et rendrait le travail de traduction le plus simple et rapide possible
+afin que les développeurs se servent du système.
+
+
+\section{\'Etude de l'existant}
+\subsection{Le système}
+Pour son système de traduction l'application possédait une classe \texttt{TTranslator}, toutes les traductions devait passer via cette classe à l'aide d'un singleton, la classe TTranslator faisait ensuite des appels à \texttt{TDataLinkAbstract} pour faire le lien
+avec la base de donnée contenant toutes les traductions.
+\subsubsection{La table RES\_Translations}
+\begin{figure}[H]
+\centering
+\input{images/2-activite/bdExistant.tex}
+\caption{Table RES\_Translations}
+\end{figure}
+\begin{description}
+	\item[ID\_RES]  Le nom de la constante de traduction.
+	\item[Language] La langue de traduction en ISO-639 (fr, en ou es)
+	\item[TranslatedText] La valeur de la constante de traduction pour la langue donnée
+	\item[Valide] Valide ou non, est à 1 si la traduction est correcte.
+\end{description}
+
+\subsubsection{La méthode \texttt{getTranslation}}
+	La classe \texttt{TTranslator} possédait une méthode \texttt{getTranslation(string, string)}, le premier paramètre était une constante de traduction et le deuxième paramètre, optionnel, correspondait à la langue de traduction.
+La constante de traduction permettait de faire le lien avec la base de donnée, chaque entrée de la base de donnée était caractérisé par un ID et une Langue.
+
+Ainsi, lorsqu'un développeur souhaitait traduire un texte, il devait connaître la constante de traduction, si celle-ci n'existait pas, il devait ajouter une entrée dans la base de donnée.
+
+\lstinputlisting[language=PHP, numbers=none, caption=Exemple d'appels de getTranslation]{exemple/2-activite/appelTTranslatorGetTranslation.php}
+
+La langue était optionnel étant donné que par défaut,  \texttt{TTranslator} utilisait la langue du navigateur, ou la langue demandée lors de la connexion.
+
+\subsection{Avantages et inconveignants du système}
+Afin de pouvoir développer un système le plus robuste possible, j'ai analysé le système afin d'en tirer les avantages et inconveignants, ce qui à permis ensuite de supprimer les inconveignants, mais de garder les avantages du système, ceux-ci
+sont disponible table \ref{table:inconveignantsEtAvantages}.
+
+\begin{table}[H] % TODO
+	\centering
+	\begin{tabular}{|p{8cm}|p{8cm}|}
+		\hline
+		\textbf{Avantages} & \textbf{Inconveignants}\\
+		\hline
+		L'utilisation d'une base de données permet une organisation simple des informations & \\
+		Convention faisant utiliser le préfixe LANG\_ pour les ID, cela permet de retrouver facilement une constante dans le code en cas de recherche& Peu pratique à la traduction\\
+		& -- Duplication de constante, cela vient sûrement des développeurs qui ne trouvait pas une constante, et en créaient une autre.\\
+		& -- Traduction de certaines variables, comme par exemple 13 derniers mois.\\
+		& -- Si la constante n'était pas traduite dans la langue demandée, le visiteur verrait un ID, ce qui n'est pas très compréhensible
+	\end{tabular}
+	\caption{Avantages et inconveignants du système}
+	\label{table:inconveignantsEtAvantages}
+\end{table}
+
+\subsection{Le problème}
+Lorsque je suis arrivé, le système de traduction arrivait à son terme. La base de donnée contenait beaucoup de redondance, par exemple la base contenait 7 ID différents ayant chacun pour valeur \textit{Coût}.\\
+\'Egalement elle contenait 378 champs qui n'était pas valide, ce nombre assez important rendait le travail de traduction à valider chacun des champs beaucoup trop conséquent. Il devenait urgent de trouver un nouveau système.
+
+Ce problème est arrivé en partie à cause des développeurs qui utilisait le système, il ne pouvait pas facilement savoir si une constante été déjà présente pour ce qu'il voulait faire ou non, ainsi il leurs été plus simple et plus rapide d'en créer une nouvelle,
+rapidement la base de donnée devint incontrôlable. Certains ont également choisis de ne pas créer d'ID, et de mettre leur texte directement dans l'appel de la méthode, cette fois-ci ce fut le code du projet qui devint difficile à maîtriser.
+
+\section{Solution techniques}
+	Une fois le système étudié, j'ai réfléchis à des solutions qui pourrait permettre d'avoir un système viable sur la durée, simple à utiliser et qui éviterait les redondances d'informations.
+	
+	\subsection{Un meta-langage} \label{solRedondance}
+	Pour éviter la redondance d'informations, j'ai choisis de créer une méta-langage qui serait utiliser dans la base de donnée, celui-ci permettrait plusieurs choses :
+	\begin{description}
+		\item[La concatenation de constante] Pour éviter de traduire toujours les même mots qui reviennent souvent, il paraissait intéressant de pouvoir intégrer un ID de constante dans un texte, ainsi les traducteurs n'auront à traduire qu'une seule
+			fois la dite constante
+		\item [L'ajout de variables] Il y a souvent des phrases qui reviennent avec seulement une partie du texte qui change, cette partie pourrait être un nombre comme dans 13 derniers mois, mais cela pourrait également être une chaîne de
+			caractère comme dans appel fixe ou appel mobile, en effet, seul le dernier mot change.
+		\item[Une gestion du pluriel singulier] L'utilisation de variables numériques vont ainsi soulever un problème qui est le singulier et le pluriel, en effet, dans comment faisons nous si nous avons 13 lignes fixes ou 1 ligne fixe ? Ce meta-langage
+			permettra de choisir comment s'effectue cet accord en fonction de la variable située devant.
+	\end{description}
+
+	\subsection{Une application externe} \label{mlanguage}
+	La solution précédente semble indispensable afin de prévenir la duplication d'informations, cependant, le problème des développeurs persisteras toujours, ils trouveront difficile la recherche, et préférerons créer une nouvelle constante, et nous
+		tomberons dans le même vis que précédemment.
+	
+	Ainsi, j'ai choisis à côté de développer une application qui permettrai de palier à ses problèmes. Celle-ci doit être simple d'utilisation, le développeur doit effectuer rapidement ce qu'il veut et doit donc lui faire gagner du temps afin que le logiciel
+	soi utilisé.
+
+	Cette application permettrait donc les choses suivantes :
+	\begin{description}
+		\item[Rechercher avec un mot clé ou un ID]  La fonctionnalité principale permettra au développeur de chercher simplement si une constante existe, si celle-ci existe, il pourra copier dans le presse papier l'appel de la méthode afin de lui simplifier
+			le travail.
+		\item[Ajouter une constante] Si la constante recherché n'existe pas, il devra être possible d'ajouter une nouvelle constante.
+		\item[Editer une constante] Il peut arriver qu'une erreur se glisse dans une constante, ainsi il sera possible de modifier la constante
+		\item[Traduire une constante existante] Quand une constante n'es pas traduite, le développeur, ou un traducteur, pourra ajouter la traduction des langues manquantes.
+		\item[Basculer une constante de l'ancienne table vers la nouvelle] Étant donné tous les problèmes de la table RES\_Translations, nous avons choisis de créer une nouvelle table, cependant, des informations de l'ancienne table sont tout de même
+			valable, ainsi il sera possible de demander à basculer un ID de l'ancienne table sur la nouvelle
+	\end{description}
+
+	\section{Rélisation des solutions proposés}
+		\subsection{La nouvelle classe \texttt{TLanguage}}
+			Pour pouvoir effectuer la solution proposé section \ref{solRedondance}, j'ai créer une nouvelle classe PHP, appelée TLanguage. \\
+			J'ai choisis de garder les parties fonctionnelles de l'ancien système, c'est-à-dire la détection et le choix de la langue du visiteur, j'ai cependant redévelopper toute la méthode \texttt{getTranslation}, afin que celle-ci soit capable d'interpréter le metaLanguage
+		\subsubsection{La base de donnée}
+			La base de donnée existante était bien conçue, cependant, mon meta-langage demandait à ajouter un nouveau champ : \texttt{Type}. En effet, comme dit-précédemment, nous pouvons inclure dans une phrase un ID, afin de ne
+			pas traduire plusieurs fois la même chose, cependant, il faut donc faire la différence entre les items, qui sont des mots qui pourront etre inclus dans d'autres phrases, et les phrases qui ne doivent jamais être inclue, ceci afin d'éviter
+		une éventuelle récursivité qui embrouillerait le développeur, mais également pour garder une logique.
+	
+		Ainsi, la nouvelle table devient donc:
+
+		\begin{figure}[H]
+			\centering
+			\input{images/2-activite/bdNouvelle.tex}
+			\caption{Table RES\_dicoLanguage}
+		\end{figure}
+
+		\subsubsection{La méthode \texttt{getTranslation}}
+			J'ai redéveloppé cette méthode intégralement afin de pouvoir y intégrer un parser qui intérpretrais le méta-langage.
+			Ainsi, une fois développé il est possible, comme expliqué section \ref{solRedondance} de :
+			\begin{description}
+		\item[Concaténer des constante]  Pour cela, il suffit au développeur d'ajouter dans la valeur de traduction [NOM\_ID], les crochets et leurs contenu seront remplacés automatiquement par la valeur correspondante avec la langue du visiteur.
+			Si la constante n'a pas été traduite pour la langue du visiteur, celle-ci sera affichée en Français.
+%			\exemple{
+			\begin{exemple}{}
+			\begin{table}[H]
+				\centering
+				\rowcolors{2}{grisclair}{grisfonce}
+				\begin{tabular}{|c|p{5.2cm}|c|}
+					\hline
+					ID\_RES & TranslatedText & Type\_RES \\
+					TRANS\_GENERAL\_DATA &Données [TRANS\_GENERAL] & PHRA \\
+					TRANS\_GENERAL  & Général & ITEM \\
+					\hline
+				\end{tabular}\vspace{10px}
+				\lstinputlisting[language=PHP, numbers=none]{exemple/2-activite/exempleConstantes.php}
+				
+				\texttt{Données générales}
+			\end{table}
+			\captionExemple{Utilisation des constantes}
+			\end{exemple}
+		\newpage
+		\item [Ajouter des variables] Il est également possible d'ajouter des variables dans une valeur, ainsi, dans le champ de la base de donnée, le développeur doit mettre <variable> \textit{variable} peut être remplacer par ce qu'il veut, cela
+			permet de donner un nom à sa variable pour que les personnes trouvant la constante comprennent à quoi correspond cette variable. Lors de l'appel de la méthode \texttt{getTranslation} le développeur fera passer la liste des arguments
+			nécessaire au bon fonctionnement de la traduction.
+			\begin{exemple}{Utilisation des variables}
+			\begin{table}[H]
+				\centering
+				\rowcolors{2}{grisclair}{grisfonce}
+				\begin{tabular}{|c|p{5.2cm}|c|}
+					\hline
+					ID\_RES & TranslatedText & Type\_RES \\
+					TRANS\_PBX\_NO\_LIGNES & <nbPBX> PBX sans ligne ni poste& PHRA\\
+					\hline
+				\end{tabular}\vspace{10px}
+
+				\lstinputlisting[language=PHP, numbers=none]{exemple/2-activite/exempleVariables.php}
+
+				\texttt{4 PBX sans ligne ni poste}
+			\end{table}
+			\captionExemple{Utilisation des variables}
+			\end{exemple}
+% Exemple
+		\item[Gérer le pluriel ou le singulier]  Si le développeur à mis des variables qui attendent un nombre, il doit signaler les accords qui suivent éventuels avec la syntaxe \texttt{(sing|plur)}.
+			\begin{exemple}{}
+			\begin{table}[H]
+				\centering
+				\rowcolors{2}{grisclair}{grisfonce}
+				\begin{tabular}{|c|p{5.2cm}|c|}
+					\hline
+					ID\_RES & TranslatedText & Type\_RES \\
+					TRANS\_NB\_RINGINGS& <nbSonneries> sonneri(e|es)& PHRA \\
+					\hline
+				\end{tabular}\vspace{10px}
+
+				\lstinputlisting[language=PHP, numbers=none]{exemple/2-activite/exemplePlurOrSing.php}
+
+				\texttt{15 sonneries}
+			\end{table}
+			\captionExemple{Utilisation du pluriel et du singulier}
+			\end{exemple}
+			\end{description}
+    \newpage
+    \subsection{MemoLanguage}
+        Une fois le nouveau moteur de traduction développé, il me fallait concevoir un outil de traduction aidant le développeur comme expliqué section \ref{mlanguage} page \pageref{mlanguage}. \\
+        Cet outil fut baptisé \mlanguage{}, lors de mon départ, il était en version 0.7.
+
+        \subsubsection{Technologies choisie}
+
+       \begin{wrapfigure}{r}{2.5cm}
+            \includegraphics[width=2.5cm]{images/2-activite/air.jpg}
+        \end{wrapfigure}
+        Afin d'avoir l'outil le plus pratique possible, celui-ci devait être installé en natif chez chacun des développeurs.
+
+         Ainsi, la technologie choisis fut \texttt{Adobe Air}\footnote{Adobe Integrated Runtime}, c'est une machine virtuelle multi-plateforme qui s'execute sur le système d'exploitation.
+
+        Il est ainsi possible d'utiliser des technologies web pour créer un client natif, ce qui permet d'avoir la puissance d'une application native avec la souplesse des technologies web.
+
+       \begin{wrapfigure}{l}{2cm}
+            \includegraphics[width=2.0cm]{images/2-activite/javascript.jpg}
+        \end{wrapfigure}
+        Pour effectuer des recherche sur un serveur distant, avoir une bonne érgonomie et ne pas avoir a recharger la page continuellement, j'ai choisis d'utiliser du Javascript pour développer le client,
+        sa puissance me permettant d'interroger le serveur. 
+        
+        Je l'ai couplé avec du XHTML\footnote{eXtensible HyperText Markup Language} et du CSS\footnote{Cascading Style Sheets} pour l'affichage et la mise en forme.\\
+
+
+     \begin{wrapfigure}{r}{2cm}
+           \includegraphics[width=2cm]{images/2-activite/mysql.jpg}
+     \end{wrapfigure}
+        Il fallait cependant également développer un serveur qui ferait le lien entre le client \texttt{Adobe Air} et la base de donnée, cette base de donnée étant celle de \adt{}, c'est une base de donnée MySQL, ce qui permet d'avoir une base facilement interfaçable avec Apache et PHP tout en gardant de bonnes performances.\\ 
+
+     \begin{wrapfigure}{l}{2cm}
+           \includegraphics[width=2cm]{images/2-activite/php.png}
+      \end{wrapfigure}
+        Le serveur sera donc codé en PHP Orienté Objet. Cela permettera d'avoir le maximum de puissance, mais également un code propre, organisé et réutilisable si celui-ci à été bien conçu. \\ ~\\
+        
+        
+        \subsubsection{Développement du serveur}
+        Le serveur ne sera appelé uniquement via le JavaScript, ainsi toutes les informations doivent passer par les URL.
+
+        J'ai donc choisis une architecture ou toutes les requêtes s'articule autour d'un index.php, avec
+        plusieurs variables en URL.
+
+        Figure \ref{fig:diagClasseServer} est disponible le diagramme de classe du serveur, dans ce diagramme de classe, les méthodes privées ne sont pas représentés pour simplifier le diagramme.
+        
+        \begin{figure}[H]
+            \input{images/2-activite/DiagrammeClassServer.tex}
+            \caption{Diagramme de classe du serveur}
+            \label{fig:diagClasseServer}
+        \end{figure}
+        \paragraph{Recherche}
+        
+            Pour effectuer une recherche, il faut appeler l'URL \texttt{index.php?page=select}, cela aura pour effet de construire une classe \texttt{PageSelect}.
+
+            Les autres informations sont transmises via l'URL avec les variables suivantes
+            \begin{description}
+                \item[] \texttt{type} -- Le type de recherche. Celui-ci peut-être par \texttt{id} ou par \texttt{text}
+                \item[] \texttt{k} -- Le ou les mots clefs. Si il y a plusieurs mots clefs ils doivent être séparés par des tirets (-).
+                \item[] \texttt{langSearch} -- Dans quelle langue on cherche, cela n'est utile qu'en cas de recherche par texte.
+                \item[] \texttt{langResult} -- La ou les langues d'affichage, si plusieurs langues doivent être renseignés celle-ci doivent être séparés par des pipes (|).
+                \item[] \texttt{valide} -- Affichage des champs valide, si valide=1, seuls les champs seront renseignés, si valide=0, seul les champs à 0 seront renseignés, si valide=2 tous les champs seront renseignés.
+                \item[] \texttt{table} -- Le nom de la table dans laquelle on cherche, cela permet de pouvoir chercher dans la nouvelle table ou dans l'ancienne suivant notre convenance.                                                                            \end{description}
+
+            La classe PageSelect effectuera ensuite une recherche à l'aide de la classe DataBase, qui est en charge d'effectuer les différentes requêtes.
+
+            Si des informations sont trouvés, elles seront affichés à l'écran, chaque colonne de la base sont séparés par trois tirets ($---$), chaque lignes sont séparés par trois plus (+++).\\
+            \'Egalement, entre trois dièses (\#\#\#) sont affichés les langues de traduction qui existe pour cette constante. Chaque langue sont séparés par des espace (\vs{})
+             au sein des dièses.
+
+            Si aucune donnée n'a été trouvée dans la base pour cette recherche, l'API\footnote{Application programming interface} retournera \texttt{NOT\_FOUND}.
+
+            Le client pourra ensuite utiliser les séparateurs pour organiser les informations.
+            \begin{exemple}
+                ~\texttt{index.php?p=select\&type=text\&k=Ajouter\&langSearch=fr\&langResult=fr|en\&\\
+                valide=1\&table=RES\_dicoLanguage}\\
+
+                \textbf{Affichage : }
+                \begin{verbatim}
+TRANS_NAME --- en###en es fr ### --- 1 --- ITEM --- Name+++TRANS_NAME --- 
+fr###en es fr ### --- 1 --- ITEM --- Nom+++TRANS_NB_CONTENT_USERS ---
+fr###fr ### --- 1 --- PHRA --- Nombre de  contenant des utilisateurs
++++TRANS_NB_POSTES --- fr###fr ### --- 1 --- PHRA --- Nombre de poste
++++TRANS_NB_USERS --- fr###fr ### --- 1 --- PHRA --- Nombre d'utilisateurs+++
+                \end{verbatim}
+                \captionExemple{Exemple de recherche}
+            \end{exemple}
+        \paragraph{Modifications}
+        
+        La modification s'effectue avec la page \texttt{index.php?page=update} qui instanciera \texttt{PageUpdate}. 
+        
+        Pour effectuer la modification, il faut passer en paramètre l'ID à modifier et toutes les nouvelles valeurs de la table.
+                    \begin{description}
+                \item[] \texttt{id} -- L'id à modifier dans la table
+                \item[] \texttt{type} -- Le nouveau type (ITEM si c'est un item ou PHRA si c'est une phrase)
+                \item[] \texttt{language} -- La nouvelle langue de la valeur
+                \item[] \texttt{value} -- La valeur correspondante
+                \item[] \texttt{valide} -- Si le champ est valide ou pas (1 s'il est valide, 0 sinon)                                                                        \end{description}
+
+        Tous ces paramètres doivent être donné, si un champ ne doit pas être modifier, il faut tout de même
+        signaler la valeur correspondante.
+        
+        Si l'édition s'est bien passé, le serveur affichera \texttt{GOOD\_UPDATE}.
+                    \begin{exemple}
+                ~\texttt{index.php?p=update\&id=TRANS\_NAME\&type=PHRA\&language=fr\&value=Nom\&valide=1}\\
+                \captionExemple{Exemple d'édition}
+            \end{exemple}
+        \paragraph{Insertion}
+        L'insertion s'effectue exactement de la même manière que la modification à la différence que l'URL appelée est \texttt{index.php?page=insertion} afin d'appeler le constructeur de \texttt{PageInsert}
+
+        Si l'insertion s'est bien déroulée, le serveur renverra \texttt{GOOD\_INSERT}.
+        
+                    \begin{exemple}
+                ~\texttt{index.php?p=insert\&id=NEW\_CST\&type=PHRA\&language=fr\&value=un\%20test\&valide=1}\\
+                
+                NOTA: le symbole \%20 sera remplacé par un espace (\vs{}).
+                \captionExemple{Exemple d'insertion}
+            \end{exemple}
+        
+        \paragraph{Suppression}
+         La suppression s'effectue avec la page \texttt{index.php?page=delete} qui instanciera \texttt{PageDelete}.
+         
+         La suppression est relativement simple, il suffit de donner en paramètre l'ID à supprimer, et toutes les traductions associées seront perdu définitivement. Il faut donc faire attention quand on utilise la suppression.
+         
+        \begin{description}
+            \item[] \texttt{id} -- L'id à supprimer définitivement de la table
+        \end{description}
+        
+        Si la suppression s'est bien passé, le serveur affichera \texttt{GOOD\_DELETE}.
+                    \begin{exemple}
+                ~\texttt{index.php?p=delete\&id=TRANS\_NAME}\\
+                \captionExemple{Exemple de suppression}
+            \end{exemple}
+
+        \subsubsection{Développement du client}
+        Une fois le serveur développé, il fallait maintenant faire le client, celui-ci est codé en JavaScript, il permet d'effectuer une recherche, une édition, une suppresion, une traduction, un ajout de constante, également un maximum de fonctionnalité ont été ajoutés afin de faciliter le travail des développeurs et pour les encourager à utiliser l'outil.
+        
+        Toutes ces fonctionnalités sont possible grâce au serveur, j'effectue donc des requêtes en Javascript avec \texttt{XMLHttpRequest}, ce qui me permet de contrôler le serveur et d'obtenir le résultat d'une page dans une chaîne de caractère.
+       
+        \paragraph{Recherche}
+            Afin d'avoir des recherche le plus poussé possible, plusieurs fonctionnalités ont été ajoutés:
+            
+            \texttt{Chercher par ID ou Texte} -- Cela permet au développeur soit de chercher un ID, soit a l'aide de mots clefs chercher dans les valeurs de traduction.
+            
+            \texttt{Chercher dans l'ancienne ou la nouvelle table} -- Il est possible de chercher soit dans l'ancienne table, soit dans la nouvelle, afin de pouvoir faciliter le passer de l'ancienne base de donnée au nouveau. Si une recherche est infructueuse dans la nouvelle table, automatiquement l'outil cherchera dans l'ancienne si il n'y a pas une correspondance. Si c'est le cas, le développeur pourra faire basculer une constante de traduction et toutes ses traductions associées dans la nouvelle table.
+            
+            \texttt{Mots entiers} -- Il peut arrivé que l'on ne cherche que des mots entiers, par exemple en cherchant ''nom`` on ne souhaiterai pas obtenir des occurences pour ''nombre``.
+            
+            \texttt{Expression régulière} -- Si un développeur veut utiliser des recherche complexe, cela est possible à l'aide d'expressions régulières.
+            
+            \texttt{Traduction valides} -- Il est également possible de ne chercher que dans les traductions valides, que les non valides ou les deux.
+                       
+            \texttt{Chercher dans une autre langue} -- Certain développeur pourrais souhaiter effectuer une recherche en anglais comme ''name`` ou en espagnol avec ''nombre``. Cependant, si la traduction à une constante n'existe pas pour la langue de recherche, celle-ci ne pourra jamais s'afficher.
+
+            \texttt{Afficher les langues souhaités} -- Le développeur peut choisir quelle langue il souhaite afficher, il peut combiner plusieurs langues. Les langues disponibles sont Anglais, Français et Espagnol.
+            
+            \begin{figure}[H]
+                \begin{center}\includegraphics[width=16cm]{images/2-activite/searchRegex.jpg}\end{center}
+                
+                Sur cette capture d'écran, on peut voir les différentes case à cocher permettant d'affiner la recherche.
+                
+                \'Egalement, il y a 4 onglets, suivant sur l'onglet où on se trouve, cela cherchera dans la nouvelle table ou dans l'ancienne table, comme indiqué par l'onglet.
+                
+                La présence de plusieurs onglets, permet de ne pas effacer une recherche qui est intéressante.
+                \caption{Recherche avec expression régulière}
+            \end{figure}
+            
+        \paragraph{\'Edition}
+        Les développeurs peuvent éditer
+                    \begin{figure}[H]
+                \begin{center}\includegraphics[width=16cm]{images/2-activite/edition.jpg}\end{center}
+                \caption{\'Edition d'une constante}
+            \end{figure}
+        \paragraph{Suppression}
+                    \begin{figure}[H]
+        %        \begin{center}\includegraphics[width=16cm]{images/2-activite/suppression.jpg}\end{center}
+
+                Sur cette capture d'écran, on peut voir les différentes case à cocher permettant d'affiner la recherche.
+
+                \'Egalement, il y a 4 onglets, suivant sur l'onglet où on se trouve, cela cherchera dans la nouvelle table ou dans l'ancienne table, comme indiqué par l'onglet.
+
+                La présence de plusieurs onglets, permet de ne pas effacer une recherche qui est intéressante.
+                \caption{Recherche avec expression régulière}
+            \end{figure}
+        \paragraph{Traduction}
+            Un utilisateur pour traduire une constante qui n'a pas été traduite dans la langue voulue, pour cela, si en cherchant il trouve une constante qui n'est pas traduite dans les trois langues (Anglais, Français et Espagnol), il pourra s'il le souhaite ajouter une traduction manquante.
+                    \begin{figure}[H]
+                \begin{center}\includegraphics[width=16cm]{images/2-activite/traduction.jpg}\end{center} \caption{Traduction d'une constante}
+            \end{figure}
+        \paragraph{Ajout de constante}
+            Pour ajouter une constante l'utilisateur doit faire fichier puis nouveau (ou contrôle + N), il aura alors un formulaire à remplir pour ajouter sa constante.
+            
+            Il sera également invité à ajouter une constante en cas de recherche infructueuse.
+            
+            \begin{figure}[H]
+                \begin{center}\includegraphics[width=16cm]{images/2-activite/ajoutCst.jpg}\end{center}
+
+                Sur cette capture d'écran, l'utilisateur à effectuer la recherche ''rien`` et n'a trouvé aucune correspondance, ainsi il a cliquer sur le lient ''Ajouter une constante dans la nouvelle table`` ce qui lui a ouvert la fenêtre avec le champ de valeur pré-remplit avec ''rien``. 
+                Le nom d'ID est également pré-remplit avec \texttt{TRANS\_} afin d'inciter les développeurs à utiliser ce préfixe. 
+                \caption{Ajouter d'une constante après une recherche infructueuse}
+            \end{figure}
+
+
+
+

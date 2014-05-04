@@ -1,0 +1,93 @@
+<html>	
+<head>
+    <title>MemoLanguage</title>
+    <link href="styles/global.css" rel="stylesheet" type="text/css"/>
+	 <link href="styles/homeSearch.css" rel="stylesheet" type="text/css"/>
+	
+	 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	
+	 <script type="text/javascript" src="lib/AIRAliases.js"></script>
+	 <script type="text/javascript" src="lib/systray.js"></script>
+	 <script type="text/javascript" src="lib/menu.js"></script>
+ 	 <script type="text/javascript" src="lib/variablesGlobales.js"></script>
+	 <script type="text/javascript" src="lib/util.js"></script>
+	 <script type="text/javascript" src="lib/actions/actionCopy.js"></script>
+ 	 <script type="text/javascript" src="lib/actions/actionSearch.js"></script>
+ 	 <script type="text/javascript" src="lib/actions/actionTabs.js"></script>
+ 	 <script type="text/javascript" src="lib/actions/actionTranslate.js"></script>
+ 	 <script type="text/javascript" src="lib/actions/actionUpdates.js"></script>
+ 	
+ 	
+	 <script type="text/javascript" src="lib/addCells.js"></script>
+ 	 <script type="text/javascript" src="lib/configuration.js"></script>
+	 <script type="text/javascript" src="lib/maxLength.js"></script>
+</head>
+<body>
+<!--
+	Recherche
+ -->
+<div id="divSearch">
+	<div id="choixLangue">
+		Afficher dans les langues: <br />
+		<input type="checkbox" checked=checked onclick="actionChangeLanguagesResults()" id="chkSearch1"/>
+			<label for="chkSearch1">Français </label><br />
+		<input type="checkbox" onclick="actionChangeLanguagesResults()"  id="chkSearch2"/>
+			<label for="chkSearch2">Anglais </label><br />
+		<input type="checkbox" onclick="actionChangeLanguagesResults()" id="chkSearch3"/>
+			<label for="chkSearch3">Espagnol</label><br />
+	</div>
+	
+	<p>Chercher par :
+	<input class="typeSearch" type="radio"  name="type" value="id" id="id" onclick="actionChangeTypeSearch('id',true);"/>
+				<label for="id">id</label>
+				
+	<input class="typeSearch" type="radio" name="type" value="text" checked="checked" id="text"
+								onclick="actionChangeTypeSearch('text',true);" />
+				<label for="text">Texte</label>
+	</p>
+		<div id="optionsValides">
+			<input type="checkbox" id="estValide" onclick="actionValideSearch( );" checked="checked"/>
+				<label for="valide">Traduction valides</label>
+			<input type="checkbox" id="estNonValide" onclick="actionValideSearch( );" />
+				<label for="nonValide">Traduction non valides</label>
+		</div>
+		
+		<div id="optionsText">
+			<input type="checkbox" id="wholeWord" onclick="actionChangeWholeWord( );"/>
+				<label for="wholeWord">Mots entiers</label>
+			<input type="checkbox" id="regex" onclick="actionChangeRegex( );"/>
+				<label for="regex">Expression reguliere</label>
+		</div>
+	<input id="search" type="text" onkeyup="actionSearch(true, false)" onKeyPress="if (event.keyCode == 13) actionSearch(true, true)"/><br />
+	<input id="btnSearch" type="button"
+				onclick="actionSearch(true, true)" value="Chercher !"/>
+</div><p>
+     <span id="onglet">
+         </span>
+
+         <a href="#" class="info" onclick="actionDisplayTypeTab()"><img src="img/button_add.png" alt="+" id="btnPlus"/><span class="textinfo">Ajouter un onglet</span></a>
+          <select style="display:none" name="typeTab" id="typeTab">
+         	<option value="Ancienne">Ancienne table</option>
+         	<option value="Nouvelle"">Nouvelle table</option>
+         </select>
+         <input id="btnValideAddTab" type="button" style="display:none"onclick="actionAddTab()" value="Ajouter" />
+        </p>
+ <div id="displayOnglets">
+ </div>
+
+	<script type="text/javascript" src="lib/traduction.js"></script>
+	<script type="text/javascript"src="lib/search.js"></script>
+	 <script type="text/javascript" src="lib/tabs.js"></script>	
+	<div id="footer"><span id="version">MemoLanguage version <strong><span id="numVersionML"></span></strong></span>
+	<span id="langueRecherche">Langue de recherche:  <strong><span id="langSearch"></span></strong></span>
+	</div>
+	<script type="text/javascript" src="lib/init.js"></script>
+		<script type="text/javascript">
+		addTab("Nouvelle");
+		addTab("Ancienne");
+
+		initTabs();	
+		changeTab('Nouvelle', 1);
+		</script>
+</body>
+</html>

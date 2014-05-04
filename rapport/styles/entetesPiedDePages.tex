@@ -1,0 +1,22 @@
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{\bsc{\chaptername~\thechapter{} :} #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection{ #1}}}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0.3pt}
+
+\fancyhf{}
+\fancyhead[LE]{\leftmark}
+\fancyhead[RO]{\rightmark}
+\fancyfoot[LE,RO]{--~\thepage~--}
+\fancyfoot[LO]{\titreRapport{}}
+\fancyfoot[RE]{\Adr{}}
+
+%% Cas des premières pages de chapitre
+\fancypagestyle{plain}{%
+	\fancyhf{}%
+    \fancyfoot[L]{\titreRapport{}}
+	\fancyfoot[R]{--~\thepage~--}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0.3pt}
+}
+

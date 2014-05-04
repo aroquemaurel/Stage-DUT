@@ -1,0 +1,35 @@
+=== Plan détaillé rapport de stage ===
+
+Remerciements 
+
+Introduction
+
+1 Présentation du groupe Memobox / 2G Technologies 
+	1.1 L’historique 
+			Création de l'entreprise, progression, rachat de 2G Technologies, ...
+	1.2 La mission de Memobox / 2G Technologies 
+			Présentation du secteur d'activité, des besoins des clients, de la concurrence
+	1.3 Les produits de l’entreprise 
+			Présentation succinte des produits GeoTaxe ES, Geotel, Geopital, Geovox, Auditelcom, Auditelbox
+	1.4 Mon rôle dans la société 
+			Ou je me situe dans l'entreprise
+	1.5 L’environnement de travail
+			Avec quoi je travail (SVN, File synchro, Apache, Mysql, eclipse, Windows XP, ...)
+
+2 Présentation de mon activité 5
+	2.1 AUDITELcom
+			Présentation de Auditelcom plus en détail. 
+	2.2 Mon rôle
+			Pourquoi je suis en stage, pose du problème du Translator.
+	2.3 Étude de l’existant
+			Comment le système fonctionne actuellement, et pourquoi je dois trouver un nouveau système. 
+	2.4 Solution techniques et travail réalisé
+			Comment le problème à été réglé, Outil Adobe Air, méta langage/
+	2.5 Résultats
+
+3 Conclusion
+	3.1 Conclusion technique
+			Ce que j'ai appris techniquement durant ce stage
+	3.2 Bilan personnel
+			Ce que le stage m'a apporté plus personnellement
+	3.3 Conclusion général

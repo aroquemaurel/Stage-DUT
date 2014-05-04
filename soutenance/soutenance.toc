@@ -1,0 +1,11 @@
+\beamer@endinputifotherversion {3.10pt}
+\select@language {french}
+\beamer@sectionintoc {2}{Le contexte professionnel}{6}{0}{1}
+\beamer@subsectionintoc {2}{1}{L'entreprise}{7}{0}{1}
+\beamer@subsectionintoc {2}{2}{L'application AUDITELcom}{9}{0}{1}
+\beamer@subsectionintoc {2}{3}{Les outils \`a disposition}{13}{0}{1}
+\beamer@sectionintoc {3}{Le travail effectu\'e}{15}{0}{2}
+\beamer@subsectionintoc {3}{1}{L'analyse de l'existant}{16}{0}{2}
+\beamer@subsectionintoc {3}{2}{Le m\'eta-langage}{22}{0}{2}
+\beamer@subsectionintoc {3}{3}{Le client lourd : \texttt {MemoLanguage}}{30}{0}{2}
+\beamer@subsectionintoc {3}{4}{R\'esultats obtenus}{33}{0}{2}

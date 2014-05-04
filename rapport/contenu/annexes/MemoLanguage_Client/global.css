@@ -1,0 +1,123 @@
+body {
+	margin: auto;
+	padding: 20px 5px;
+	font-family: sans-serif;
+	font-size: 0.8em;
+	background-color: #F5F5F5;
+}
+
+a {
+  color: rgb(120,120,120);
+  text-decoration: none;
+}
+a:hover {
+  color: black;
+  text-decoration: underline;
+}
+
+.traduction:hover {
+	cursor: pointer; 
+}
+
+.fieldAddCstId {
+	width: 300px;
+}
+
+#addCst #langueAjout {
+	margin-left: 10px;
+}
+
+#addCst #typeItem {
+	margin-left: 23px;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table tr {
+	position: relative;
+}
+
+td {
+	border: 1px solid black;
+	padding: 1px 5px;
+}
+.titreColonne {
+	background-color: rgb(150,150,150);
+	color: white;
+	text-align: center;
+}
+
+tr .keyword {
+	background-color: rgb(195,195,195);
+}
+
+tr .valueCst {
+	min-width: 320px;
+}
+tr .valideAndLang {
+	min-width: 80px;
+	text-align : center;
+}
+tr .idCst {
+	min-width: 170px;
+}
+
+tr .boutonCst{
+max-width: 30px;
+}
+
+/* infobulles */
+a.info {
+   position: relative;
+   color: black;
+   text-decoration: none;
+}
+a.infolink {
+   position: relative;
+}
+
+.textinfo {
+   display: none; 
+}
+a.info:hover {
+   background: none; 
+   z-index: 500; 
+
+   cursor: default; 
+}
+a.infolink:hover {
+background: none; 
+   z-index: 500; 
+
+   cursor: auto; 
+}
+a.info:hover .textinfo, a.infolink:hover .textinfo {
+   display: inline; 
+   position: absolute;
+
+   white-space: nowrap; 
+
+   top: 30px; 
+   left: 20px;
+
+   background: white;
+
+   color: black;
+   padding: 3px;
+
+   border: 1px solid black;
+   border-left: 4px solid black;
+}
+
+.attention {
+	text-align: center;
+	color: red;
+	font-weight: bold;
+}
+
+.warningFields {
+	color: red;
+	display: none;
+}

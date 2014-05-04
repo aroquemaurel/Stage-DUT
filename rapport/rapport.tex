@@ -1,0 +1,124 @@
+\documentclass[12.2pt,a4paper]{book}
+\usepackage[top=2.2cm, bottom=2.2cm, left=1.8cm, right=1.8cm]{geometry}
+
+\usepackage{lmodern}
+\usepackage[table]{xcolor}
+\input{styles/couleurs.tex}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+\usepackage{verbatim}
+\usepackage[urlbordercolor={1 1 1}, linkbordercolor={1 1 1}, linkcolor=vert1, urlcolor=bleu, colorlinks=true]{hyperref}
+\usepackage{tikz} %Vectoriel
+\usepackage{listings}
+\usepackage{fancyhdr}
+%\usepackage{amssymb}
+\usepackage{eurosym}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+\usepackage{lib/lipsum}
+\usepackage{lib/wrapfig}
+\input{styles/entetesPiedDePages.tex}
+\input{macros/constantes.tex}
+\input{macros/symboles.tex}
+\input{styles/remarquesExempleAttention.tex}
+
+\input{styles/polices.tex}
+\input{styles/affichageChapitre.tex}
+
+\input{styles/glossaire.tex}
+\input{styles/listings.tex}
+
+
+\makeatletter
+\addto\captionsfrench{%
+  \renewcommand\listfigurename{Liste des figures}%
+}
+
+\newcommand\tableofcontentsA{%
+	\chapter*{Table des annexes
+	\@mkboth{%
+	\MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
+	\@starttoc{toca}%
+}
+\renewcommand*{\lstlistlistingname}{Liste des codes sources}
+\addto\captionsenglish{\renewcommand{\figurename}{Fig.}}
+
+% replace : with . in caption
+\renewcommand{\@makecaption}[2]{%
+\vspace{\abovecaptionskip}%
+\sbox{\@tempboxa}{#1. #2}
+\ifdim\wd\@tempboxa > \hsize
+        #1. #2\par
+\else
+        \global\@minipagefalse
+        \hbox to \hsize {\hfil #1. #2\hfil}%
+\fi
+\vspace{\belowcaptionskip}}%
+
+% make lof a subsubsection
+\renewcommand\listoffigures{%
+    \chapter{\listfigurename}%
+      \@mkboth{\MakeUppercase\listfigurename}%
+              {\MakeUppercase\listfigurename}%
+       \@starttoc{lof}%
+    }
+    \renewcommand\listoftables{%
+    \chapter{\listtablename}%
+    \@mkboth{\MakeUppercase{\listtablename}}%
+            {\MakeUppercase{\listtablename}}%
+    \@starttoc{lot}
+    }
+
+    \renewcommand\lstlistoflistings{%
+    \begingroup
+    \chapter{\lstlistlistingname}%
+    \parskip\z@\parindent\z@\parfillskip \z@ \@plus 1fil%
+    \@starttoc{lol}%
+    \endgroup
+    }
+\makeatother
+
+\includeonly{
+%	contenu/0-avantPropos/pageDeTitre,
+%	contenu/0-avantPropos/remerciements,
+%	contenu/0-avantPropos/intro,
+%	contenu/1-entreprise,
+%	contenu/3-mission,
+%	contenu/4-bilan,
+%
+  contenu/annexes/preambule,
+   contenu/annexes/pageDeTitre,
+   contenu/annexes/resultats,
+contenu/annexes/codeSource,
+ contenu/annexes/glossaire,
+  contenu/annexes/listes,
+}
+\begin{document}
+\thispagestyle{empty}
+	\setcounter{tocdepth}{1}
+	\setcounter{secnumdepth}{3}
+%	
+	\include{contenu/0-avantPropos/pageDeTitre}
+	\include{contenu/0-avantPropos/remerciements}
+%
+	\include{contenu/0-avantPropos/intro}
+	\include{contenu/1-entreprise}
+	\include{contenu/3-mission}
+	\include{contenu/4-bilan}
+%
+	\include{contenu/annexes/preambule}
+	\include{contenu/annexes/pageDeTitre}
+	\include{contenu/annexes/resultats}
+    \include{contenu/annexes/glossaire}
+    \include{contenu/annexes/listes}
+	\include{contenu/annexes/codeSource}
+\end{document}
+
+
+
+
+
+

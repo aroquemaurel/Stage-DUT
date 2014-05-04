@@ -1,0 +1,20 @@
+\tableofcontents
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+En fin de deuxième année de DUT\footnote{Diplôme Universitaire de Technologies} Informatique, j'ai dû effectuer un stage de 11 semaines
+en milieu professionnel afin de compléter ma formation.
+
+Grâce à Madame \bsc{Bensadoun}, j'ai eu connaissance d'un stage situé dans une entreprise du secteur des télécommunications : \mbx{}, ce stage
+consistait à la participation au développement d'une application en mode SaaS\footnote{Software As A Service}.
+
+Intéressé par les technologies web, j'ai pris rendez vous avec \Denis{} et \Romain{} afin de savoir en quoi consistait exactement le stage. \\
+Cet entretient a fait grandir mon intérêt pour le poste, et ma candidature a été retenue.
+
+Dans ce rapport de stage, je vais vous présenter mon travail qui à duré 11 semaines, et les connaissances que j'ai pu en retiré, autant sur le point technique que personnel.
+
+Dans une première partie, je vous présenterai donc l'entreprise et le contexte professionnel dans lequel j'ai evolué.
+
+Au début du stage, ma mission s'est précisée: refondre le système de traduction d'une application web multi-langue, ainsi dans une deuxième partie je vous présenterai
+d'une part l'étude de l'existant, et vous expliquerai pourquoi le système devait être refondue, et d'une autre part mes solutions pour palier à ce problème.
+
+Enfin, dans la troisième partie, je ferai un bilan personnel et professionnel mettant en valeur ce que ce stage m'a apporté.

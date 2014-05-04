@@ -1,0 +1,90 @@
+\documentclass[a4paper,12pt, oneside]{book}
+\usepackage[noheadfoot, nomarginpar, top=1.7cm, bottom=1.7cm, left=1.5cm, right=1.5cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}%
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{pstricks} %Couleurs
+\pagestyle{empty}
+
+\definecolor{grisgris}{gray}{0.4}
+\definecolor{bleu}{rgb}{0.02, 0.28, 0.5}
+\fboxsep =0pt \parindent =0pt\parskip =12pt
+\input{macros/constantes.tex}
+\begin{document}
+	\sffamily
+	% Le cadre sur la gauche, une boite rouge avec les logos IUT et UPS
+	\fcolorbox{bleu}{bleu}{
+		\parbox[t] [0.991\textheight][b]{0.265\textwidth}{%
+			\begin{center}
+			\vspace{10px}
+			\includegraphics[width=4.5cm]{images/ups.jpg}\\%
+			\vspace{5px}
+			\includegraphics[width=4.5cm]{images/logoIUT.png}\\%
+			\vfill
+			\includegraphics[width=4.5cm]{images/logoMemobox.png}\\%
+			\fontsize{11.5}{11.5}\selectfont \color{white}{
+			Memobox -- 2G Technologies\\
+			12 Bv de l'Europe\\
+			31850 -- \bsc{Montrabé}
+			}
+			\end{center}
+			\vspace{10px}
+		}
+	}
+	%
+	\hspace{0.05\textwidth} %une petite marge sur la droite du cadre
+	%
+	% Pour éviter de créer un nouveau paragraph, on commente les lignes vide
+	\parbox[t] [0.991\textheight]{0.66\textwidth}{\large%
+		\vspace{30px}
+		%
+		\mbox{}\hfill{
+			\begin{flushright}
+				\fontsize{15}{15} \selectfont \Adr{}\\\vspace{10px}
+				\fontsize{10}{10} \selectfont Stage effectué chez Memobox -- 2G technologies\\ 
+				Du 10 Avril 2012 au 22 Juin 2012 
+			\end{flushright}
+			\begin{flushleft}
+				Pour M. Denis \bsc{Mallet}\\
+				Pour M. Patrick \bsc{Magnaud}\\
+			\end{flushleft}
+		}\par
+		%
+		\vfill\mbox{}\vfill
+		%
+		%
+		\fbox{
+		\begin{minipage}{0.66\textwidth}
+			\begin{center}
+				\vspace{20px}	
+				\fontsize{35}{25}\selectfont Rapport de stage 
+				
+				\fontsize{22}{22}\selectfont \titreRapport 
+				\vspace{20px}	
+			\end{center}
+		\end{minipage}
+		}
+		%
+%		\hrule height 4pt
+		%
+		\begin{center}
+%			\fontsize{20}{20}\selectfont\vspace{20px} --- Annexes ---
+		\end{center}
+		% Les vfill servent à insérer du blanc en dessous du titre pour éviter que le titre aille tout en bas  
+		% Plus il y a de vFill plus le titre sera haut dans la page
+		\vfill
+		\vfill
+		\vfill
+		\vfill
+		\vfill
+		\vfill
+		\vfill
+		\vfill
+		\vfill
+		\vfill
+		\vfill
+		\mbox{}
+	}%
+\end{document} 

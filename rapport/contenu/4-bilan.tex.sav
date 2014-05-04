@@ -1,0 +1,28 @@
+﻿\chapter{Conclusion}
+\`A l'issue de ces 11 semaines de stage passées dans l'entreprise \mbx{}, je souhaite faire un bilan professionnel, technique mais également personnel de ce que m'a apporté mon travail au sein de l'équipe de développement de \adt{}.
+
+Dans les pages qui suivront cette conclusion, vous pourrez observer mon Curriculum Vitae avant et après le stage afin de mieux observer ma progression. Un bilan de compétences et également disponible.
+\section{Bilan professionnel}
+    Ce stage fut ma première experience professionnel, cela m'a permis de voir que cela n'avait rien à voir avec l'école.
+      
+    En effet, j'ai découvert qu'en entreprise, nous n'avons pas le droit à l'erreur, je travaillais sur \adt{} qui est actuellement utilisé par des clients, ainsi, mes modifications passait en production, il fallait donc que je test bien afin que les clients n'ai pas de problème lors de l'utilisation de l'application.
+    
+    \'Egalement, j'ai appris que en entreprise, il faut vraiment prévoir tous les cas d'utilisations, qu'un seul cas oublié peut être catastrophique pour le produit.
+    
+    Enfin, je me suis rendu compte que dans le monde du travail, les programmes sont loin d'être récent, ainsi le développement de \adt{} ayant été commencé dans les années 2000, j'ai eu du mal à comprendre certaines parties de code, j'ai également découvert du code mort, ce qui ne facilite pas la compréhension du programme.
+
+\section{Bilan technique}
+D'un point de vue technique, ce stage m'a permis d'apprendre de nouvelles technologies que je ne connaissais pas, Adobe AIR d'une part, je ne connaissais pas son existence, et cela m'a montré qu'avec des technologies web, il est de nos jours possible de faire tout ce que l'on veut.
+
+J'ai aussi appris le JavaScript qui ne nous est pas enseigné à l'IUT, mais également le PHP orienté objet, cependant ma formation en Algorithmique et en technologies web m'a permis de rapidement apprendre ces nouvelles technologies.
+
+Enfin, ce stage m'a également montré que l'optimisation dans le cadre du web est très importante, en effet nous ne savons pas d'avance combien de personnes se connecterons sur le serveur en simultané, ainsi il faut faire attention à tous les octets afin que le serveur n'ai aucun problème, j'ai ainsi appris qu'en informatique la notion d'infinis n'existe pas, par exemple, une requête SQL doit toujours avoir une limite afin d'éviter les problèmes.
+
+Cela m'a montré qu'un analyste programmeur n'arrête jamais d'apprendre, toute sa carrière il devrait se mettre à niveau, en effet l'évolution de l'informatique étant très rapide, un développeur ne peut se figer sur ses connaissance.
+
+\section{Bilan personnel}
+%
+%
+%
+\includepdf{images/oldCV.pdf}
+\includepdf{images/newCV.pdf}

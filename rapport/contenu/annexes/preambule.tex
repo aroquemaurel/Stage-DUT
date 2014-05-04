@@ -1,0 +1,14 @@
+%	\cleardoublepage
+	\setcounter{page}{1}
+	\appendix
+	\let\oldaddtocontents\addtocontents
+	\def\addtocontents#1{%
+		\def\tmpa{#1}%
+		\def\tmpb{toc}%
+		\ifx\tmpa\tmpb
+		   \def\tmpa{toca}%
+		\fi%
+	 \expandafter\oldaddtocontents\expandafter{\tmpa}%
+	 }
+%
+%

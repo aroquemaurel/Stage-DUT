@@ -1,0 +1,15 @@
+\lstinputlisting[caption=actionAddCst.js]{actionAddCst.js}
+\lstinputlisting[caption=actionCopy.js]{actionCopy.js}
+\lstinputlisting[caption=actionSearch.js]{actionSearch.js}
+\lstinputlisting[caption=actionTabs.js]{actionTabs.js}
+\lstinputlisting[caption=actionTranslate.js]{actionTranslate.js}
+\lstinputlisting[caption=actionUpdates.js]{actionUpdates.js}
+\lstinputlisting[caption=scriptListings.sh]{scriptListings.sh}
+\lstinputlisting[language=PHP, caption=actionAddCst.js]{contenu/annexes/MemoLanguage_Client/actionAddCst.js}
+\lstinputlisting[language=PHP, caption=actionCopy.js]{contenu/annexes/MemoLanguage_Client/actionCopy.js}
+\lstinputlisting[language=PHP, caption=actionSearch.js]{contenu/annexes/MemoLanguage_Client/actionSearch.js}
+\lstinputlisting[language=PHP, caption=actionTabs.js]{contenu/annexes/MemoLanguage_Client/actionTabs.js}
+\lstinputlisting[language=PHP, caption=actionTranslate.js]{contenu/annexes/MemoLanguage_Client/actionTranslate.js}
+\lstinputlisting[language=PHP, caption=actionUpdates.js]{contenu/annexes/MemoLanguage_Client/actionUpdates.js}
+\lstinputlisting[language=PHP, caption=scriptListings.sh]{contenu/annexes/MemoLanguage_Client/scriptListings.sh}
+\lstinputlisting[language=PHP, caption=sortie]{contenu/annexes/MemoLanguage_Client/sortie}

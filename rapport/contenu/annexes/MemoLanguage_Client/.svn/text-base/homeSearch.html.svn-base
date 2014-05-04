@@ -1,0 +1,89 @@
+<html>	
+<head>
+    <title>MemoLanguage</title>
+    <link href="styles/global.css" rel="stylesheet" type="text/css"/>
+	 <link href="styles/homeSearch.css" rel="stylesheet" type="text/css"/>
+	 
+	 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	 
+	 <script type="text/javascript" src="lib/AIRAliases.js"></script>
+	 <script type="text/javascript" src="lib/systray.js"></script>
+	 <script type="text/javascript" src="lib/menu.js"></script>
+ 	 <script type="text/javascript" src="lib/variablesGlobales.js"></script>
+	 <script type="text/javascript" src="lib/util.js"></script>
+	 <script type="text/javascript" src="lib/actionsFormulaire.js"></script>
+	 <script type="text/javascript" src="lib/addCells.js"></script>
+ 	 <script type="text/javascript" src="lib/configuration.js"></script>
+ 	 
+</head>
+<body>
+<!--
+	Recherche 
+ -->
+<div id="divSearch"> 
+	<div id="choixLangue">
+		Afficher dans les langues: <br /> 
+		<input type="checkbox" checked=checked onclick="actionChangeLanguagesResults()" id="chkSearch1"/> 
+			<label for="chkSearch1">Français </label><br />
+		<input type="checkbox" onclick="actionChangeLanguagesResults()"  id="chkSearch2"/> 
+			<label for="chkSearch2">Anglais </label><br />
+		<input type="checkbox" onclick="actionChangeLanguagesResults()" id="chkSearch3"/> 
+			<label for="chkSearch3">Espagnol</label><br />
+	</div>
+	
+	<p>Chercher par : 
+	<input class="typeSearch" type="radio"  name="type" value="id" id="id" onclick="actionChangeTypeSearch('id');"/> 
+				<label for="id">id</label>
+				
+	<input class="typeSearch" type="radio" name="type" value="text" checked="checked" id="text" 
+								onclick="actionChangeTypeSearch('text');" /> 
+				<label for="text">Texte</label> 
+	</p> 
+	<p> Dans la table :
+					<input class="nomTable" type="radio" name="table" value="RES_dicoLanguage" checked="checked" id="nouvelle" 
+								onclick="actionChangeTable('RES_dicoLanguage');" />
+				<label for="nouvelle">Nouvelle</label>
+					<input class="nomTable" type="radio" name="table" value="RES_Translations" id="ancienne" 
+								onclick="actionChangeTable('RES_Translations');" /> 
+				<label for="ancienne">Ancienne</label>
+	</p>
+		
+		<div id="optionsValides">
+			<input type="checkbox" id="estValide" onclick="actionValideSearch( );" checked="checked"/> 
+				<label for="valide">Traduction valides</label>
+			<input type="checkbox" id="estNonValide" onclick="actionValideSearch( );" /> 
+				<label for="nonValide">Traduction non valides</label>
+		</div>
+		
+		<div id="optionsText"> 
+			<input type="checkbox" id="wholeWord" onclick="actionChangeWholeWord( );"/> 
+				<label for="wholeWord">Mots entiers</label>
+			<input type="checkbox" id="regex" onclick="actionChangeRegex( );"/> 
+				<label for="regex">Expression régulière</label>
+		</div>
+			
+	<input id="search" type="text" onkeyup="actionSearch()" />
+</div>
+   
+<!-- 
+	Affichage résultats
+-->
+   <div id="nbResults"> </div>
+<div id="results">
+	<div id="infoResults">
+		<div id="infoNouvelleTable"></div>
+		<div id="infoAncienneTable"></div>
+	</div>
+	<div id="nomTable"></div>
+	<table id="tableResults"></table>
+</div> 
+
+<script type="text/javascript" src="lib/traduction.js"></script>
+<script type="text/javascript"src="lib/recherche.js"></script>
+	
+	<div id="footer"><span id="version">MemoLanguage version <strong><span id="numVersionML"></span></strong></span>
+	<span id="langueRecherche">Langue de recherche:  <strong><span id="langSearch"></span></strong></span>
+	</div>
+	<script type="text/javascript" src="lib/init.js"></script>
+</body>
+</html>

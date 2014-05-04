@@ -1,0 +1,100 @@
+" Global settings
+set nocompatible
+set shiftwidth=4
+syntax on
+set tabstop=4
+set softtabstop=4
+set scrolloff=3     " keep 3 lines when scrolling
+set ls=2            " allways show status line
+set showcmd         " display incomplete commands
+set backspace=2
+
+set t_Co=256
+colorscheme zenburn
+
+set report=0
+
+"afficher une liste lors de complétion de commande
+set wildmode=longest,list
+
+set incsearch       " do incremental searching
+set hlsearch        " highlight searches
+set ignorecase      " ignore case when searching 
+
+set mouse=a
+set number
+set ruler           " show the cursor position all the time
+set cursorline
+
+set visualbell t_vb=    " turn off error beep/flash
+set title           " show title in console title bar
+set ttyfast         " smoother changes
+set nostartofline   " don't jump to first character when paging
+set modelines=3     " number lines checked for modelines
+set shortmess=atI   " Abbreviate messages
+set whichwrap=b,s,h,l,<,>,[,]   " move freely between files
+
+set autoindent     " always set autoindenting on
+set smartindent        " smart indent
+set smarttab
+set cindent            " cindent
+
+"pour l'impression
+set printheader=%<%f%h%m%=Page\ %N\ of\ %{line('$')/73+1}
+set printoptions=number:y
+set printoptions=paper:A4,syntax:y,wrap:y,number:y,left:3pc,right:3pc,top:3pc,bottom:3pc,formfeed:y
+
+"imprime vers l'imprimante
+noremap <F2> :colorscheme darkblue <cr> :hardcopy <cr> :colorscheme zenburn<cr> 
+"imprime vers un pdf
+noremap <F3> :colorscheme darkblue <cr> :hardcopy > fichier.pdf<cr> :colorscheme zenburn<cr>
+
+noremap <F5> :set spell spelllang=fr <cr>
+noremap <F4> :set spell spelllang=en <cr>
+noremap <F6> :set nospell <cr>
+
+highlight CursorLine ctermbg=darkgray
+"couleur numéros de ligne
+highlight LineNr term=bold ctermfg=gray guifg=darkgray
+:au BufWinEnter * let w:m1=matchadd('Error', '\%<97v.\%>95v', -1) "erreur si nombres caractère sur lal igne > 100
+
+" Special configuration for development
+:filetype on
+set tags+=~/.vim/tags/stl
+set tags+=~/.vim/tags/gl
+set tags+=~/.vim/tags/sdl
+set tags+=~/.vim/tags/qt4
+noremap <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<cr>
+inoremap <F12> <Esc>:!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<cr>
+nnoremap <silent> <F9> :NERDTree <cr>
+" OmniCppComplete
+let OmniCpp_NamespaceSearch = 1
+let OmniCpp_GlobalScopeSearch = 1
+let OmniCpp_ShowAccess = 1
+let OmniCpp_MayCompleteDot = 1
+let OmniCpp_MayCompleteArrow = 1
+let OmniCpp_MayCompleteScope = 1
+let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+
+" automatically open and close the popup menu / preview window
+au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+"set completeopt=menuone,menu,longest,preview
+
+autocmd BufRead *.algo set ft=algo "on active la coloration pour les fichiers .algo
+
+set statusline=%<%f%m\ %r\ %h\ %w%=%l,%c\ %p%%
+
+" shebang automatique lors de l'ouverture nouveau
+" d'un fichier *.py, *.sh (bash), modifier l'entête selon les besoins :
+:autocmd BufNewFile *.sh,*.bash 0put =\"#!/bin/bash\<nl># -*- coding: UTF8 -*-\<nl>\<nl>\"|$
+:autocmd BufNewFile *.py 0put=\"#!/usr/bin/env python\"|1put=\"# -*- coding: UTF8 -*-\<nl>\<nl>\"|$
+
+:autocmd BufNewFile *.c 0put =\"\/*\<nl>\  ________________________________________________\<nl> \|\<nl> \|     Programme: \<nl> \|     Langage: C\<nl> \|     Auteur:\<nl> \|\<nl> \|     Fichier:\<nl> \|     Date de modification:\<nl> \|\<nl> \|_________________________________________________\<nl>*/\<nl>\<nl>#include <stdlib.h>\<nl>#include <stdio.h>\<nl>\<nl>\"|$
+
+
+:autocmd BufNewFile *.cpp 0put =\"\/*\<nl>\  ________________________________________________\<nl> \|\<nl> \|     Programme: \<nl> \|     Langage: C++\<nl> \|     Auteur:\<nl> \|\<nl> \|     Fichier:\<nl> \|     Date de modification:\<nl> \|\<nl> \|________________________________________________\<nl>*/\<nl>\<nl>#include <iostream>\<nl>\<nl>\"|$
+:autocmd BufNewFile *.h 0put =\"\/*\<nl>\  ________________________________________________\<nl> \|\<nl> \|     Programme: \<nl> \|     Langage: C++\<nl> \|     Auteur:\<nl> \|\<nl> \|     Fichier:\<nl> \|     Date de modification:\<nl> \|\<nl> \|________________________________________________\<nl>*/\<nl>\<nl>#ifndef __\<nl>#define __\<nl>\<nl>\<nl>\#endif\<nl>\<nl>\"|$
+
+:autocmd BufNewFile *.java 0put =\"\/*\<nl>\  ________________________________________________\<nl> \|\<nl> \|     Programme: \<nl> \|     Langage: Java\<nl> \|     Auteur:\<nl> \|\<nl> \|     Fichier:\<nl> \|     Date de modification:\<nl> \|\<nl> \|________________________________________________\<nl>*/\<nl>\<nl>\"|$
+:autocmd BufNewFile *.php 0put =\"\<\?php\<nl>/*\<nl>\  ________________________________________________\<nl> \|\<nl> \|     Programme: \<nl> \|     Langage: PHP\<nl> \|     Auteur:\<nl> \|\<nl> \|     Fichier:\<nl> \|     Date de modification:\<nl> \|\<nl> \|________________________________________________\<nl>*/\<nl>\<nl>?>\"|$
+

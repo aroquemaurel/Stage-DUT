@@ -1,0 +1,85 @@
+	\includepdf{styles/couverture_rapport.pdf} %Couverture du rapport de stage
+	\newpage
+\thispagestyle{empty}
+	\begin{flushright}
+		~
+		\vfill
+		\vspace{200px}
+		Version du \today{}
+	\end{flushright}
+	%% Page de titre
+~
+\thispagestyle{empty}
+\sffamily
+	\vspace{10px}
+\thispagestyle{empty}
+	%
+	%
+	% Pour éviter de créer un nouveau paragraph, on commente les lignes vide
+		\vspace{30px}
+		%
+		\mbox{}\hfill{
+			\begin{flushright}
+				\fontsize{15}{15} \selectfont Antoine de \bsc{Roquemaurel}\\\vspace{10px}
+				\fontsize{10}{10} \selectfont Stage effectué chez Memobox -- 2G technologies\\
+				Du 10 Avril 2012 au 22 Juin 2012
+			\end{flushright}
+			\begin{flushleft}
+				Pour M. Denis \bsc{Mallet}\\
+				Pour M. Patrick \bsc{Magnaud}\\
+			\end{flushleft}
+		}\par
+		%
+		\vfill\mbox{}\vfill
+		%
+		%
+		\vfill
+		\vfill
+		\vfill
+		\vfill
+		\vfill
+		\hspace{65px}
+		\fbox{
+		\begin{minipage}{0.7\textwidth}
+			\begin{center}
+				\vspace{20px}	
+				\fontsize{35}{25}\selectfont Rapport de stage
+				
+				\fontsize{22}{22}\selectfont \titreRapport
+				\vspace{20px}	
+			\end{center}
+		\end{minipage}
+		}
+		%
+%		\hrule height 4pt
+		%
+		\begin{center}
+%			\fontsize{20}{20}\selectfont\vspace{20px} --- Annexes ---
+		\end{center}
+		% Les vfill servent à insérer du blanc en dessous du titre pour éviter que le titre aille tout en bas
+		% Plus il y a de vFill plus le titre sera haut dans la page
+	% Le cadre sur la gauche, une boite rouge avec les logos IUT et UPS
+		\vfill
+		\vfill
+		\vfill
+		\vfill
+		\vfill
+		\vfill
+		\vfill
+	\begin{flushleft}
+		\fontsize{11.5}{11.5}\selectfont
+		Memobox -- 2G Technologies\\
+		12 Bv de l'Europe\\
+		31850 -- \bsc{Montrabé}\\
+		\includegraphics[width=4.5cm]{images/logoMemobox.png}\\%
+	\end{flushleft}
+		\vfill
+		\vfill
+		\vfill
+		\vfill
+		\mbox{}
+		
+\newpage
+~
+\thispagestyle{empty}
+

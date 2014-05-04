@@ -1,0 +1,394 @@
+% /solutions/conference-talks/conference-ornate-20min.fr.tex, 22/02/2006 De Sousa
+
+\documentclass{beamer}
+
+% Ce fichier est un exemple d'exposé
+
+% - pour des conférences,
+% - d'une durée approximative de 20 minutes,
+% - avec un style ornemental.
+
+
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% Traduction de Philippe De Sousa <philippejjg@free.fr>
+%
+% En principe, ce fichier peut être redistribué et/ou modifié conformément
+% aux termes de la GNU Public License, version 2.
+%
+% Cependant, ce fichier est supposé comme étant un "exemple-type" qui peut être modifié
+% selon vos propres besoins. Pour cette raison, si vous utilisez ce fichier en tant qu'
+% "exemple-type" et non spécifiquement pour le distribuer en tant que partie d'un
+% package ou programme, je vous donne la permission exceptionnelle de copier librement et
+% de modifier ce fichier et même d'effacer ce message de copyright.
+
+
+\mode<presentation> {
+  \usetheme{MarbugCustom}
+  % ou autre ...
+	
+  \setbeamercovered{invisible}
+  % ou autre chose (il est également possible de supprimer cette ligne)
+}
+
+
+\usepackage[french]{babel}
+% or autre comme par exemple \usepackage[english]{babel}
+
+\usepackage[latin1]{inputenc}
+% or autre
+
+\usepackage{graphicx}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{listings}
+% Or autre. Notez que le codage et la fonte doivent être assortis. Si T1
+% ne paraît pas très esthétique, essayer d'effacer la ligne contenant fontenc.
+\newcommand{\titre}{Refonte du système multilingue d'une application Web}
+\newcommand{\logoIUT}{\includegraphics[height=0.71cm]{logoIUT.png}}
+\newcommand{\logoMBX}{\includegraphics[height=0.71cm]{logoMBX.png}}
+\input{styles/listings.tex}
+\title[\logoIUT{} \logoMBX{}] % (facultatif, à utiliser uniquement si le titre de l'article est trop long)
+{\titre}
+
+\subtitle {}
+
+\author[\color{white}{Antoine de \bsc{Roquemaurel}}] % (facultatif, à utiliser seulement avec plusieurs auteurs)
+{Antoine de \bsc{Roquemaurel}}
+% - Composez les noms dans l'ordre dans lequel ils apparaîtrons dans l'article
+% - Utilisez la commande \inst{?} uniquement si les auteurs ont des affiliations
+%   différentes.
+
+\institute[Universités de Quelque Part et d'Ailleurs] % (facultatif mais généralement nécessaire)
+{
+  DUT Informatique\\
+  IUT 'A' Toulouse --- Université Paul Sabatier\\\vspace{10px}
+  Memobox / 2G Technologies
+}
+% - Utilisez la commande \inst uniquement s'il y a plusieurs affectations
+% - Faîtes quelque chose de simple, personne ne s'intéresse à votre adresse
+
+\date[\today] % (facultatif, peut être une abréviation du nom de la conférence)
+{\today}
+% - Utilisez à la fois le nom de la conférence et son abréviation.
+% - N'a pas réellement d'importance pour l'assistance qui sera présente lors de la conférence,
+%   mais en a surtout pour les personnes (y compris vous-même) qui liront les transparents en ligne.
+
+\subject{Refonte du système de traduction de AUDITELcom}
+% Inséré uniquement dans la page d'information du fichier PDF. Peut être
+% supprimé.
+
+
+% Si vous avez un fichier nommé "université-logo-nomfichier.xxx", où xxx
+% est un format graphique accepté par latex ou pdflatex (comme par exemple .png),
+% alors vous pouvez insérer votre logo ainsi :
+
+% \pgfdeclareimage[height=0.5cm]{le-logo}{université-logo-nomfichier}
+% \logo{\pgfuseimage{le-logo}}
+
+
+
+% À supprimer si vous ne voulez pas que la table des matières apparaisse
+% au début de chaque sous-section :
+\AtBeginSection[] {
+  \begin{frame}<beamer>{Ligne directrice}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+% Si vous souhaitez recouvrir vos transparents un à un,
+% utilisez la commande suivante (pour plus d'info, voir la page 74 du manuel
+% d'utilisation de Beamer (version 3.06) par Till Tantau) :
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+
+\setbeamertemplate{footline}{
+	\leavevmode%
+	\hbox{\hspace*{-2px}
+	\begin{beamercolorbox}[wd=.14\paperwidth,ht=2.2ex,dp=1ex,center]{section in head/foot}%
+		\usebeamerfont{} \insertshortdate{}\hspace*{2em} %~~(\insertshortinstitute)
+	\end{beamercolorbox}%
+
+	\begin{beamercolorbox}[wd=.50\paperwidth,ht=2.25ex,dp=1ex,center]{section in head/foot}%
+		\usebeamerfont{section in head/foot}\titre{}
+	\end{beamercolorbox}%
+
+	\begin{beamercolorbox}[wd=.36\paperwidth,ht=2.25ex,dp=1ex,right]{section in head/foot}%
+		\usebeamerfont{section in head/foot}
+		\insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+	\end{beamercolorbox}}%
+					\vskip0pt%
+}
+
+\begin{document}
+\begin{frame}
+  \titlepage
+\end{frame}
+\section*{~}
+\begin{frame}{Refonte d'un système multilingue}
+    \begin{itemize}
+        \item Memobox / 2G Technologies\pause
+        \item \textbf{Sujet} : Refonte d'un système multilingue\\ $\Rightarrow$ Comment empêcher la redondance d'informations ?
+      \end{itemize}\pause
+                \begin{minipage}{130px}
+        \begin{block}{Acteurs de l'entreprise}
+            \begin{itemize}
+                \item Denis \bsc{Mallet}
+                \item Romain \bsc{Auriac}
+            \end{itemize}
+        \end{block}
+    \end{minipage} ~~
+    \begin{minipage}{110px}
+        \begin{block}{Acteur de l'IUT}
+            \begin{itemize}
+                \item Patrick \bsc{Magnaud}\\~~
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+\end{frame}
+
+
+\begin{frame}{Plan}
+  \tableofcontents
+\end{frame}
+\section{Le contexte professionnel}
+    \subsection{L'entreprise}
+    \begin{frame}{Memobox / 2G Technologies}
+        \begin{itemize}
+            \item Créée en 1994
+            \item Entreprise à dimension Humaine
+            \item \'Editeur de solutions de Gestion Financières des Télécoms
+				\pause
+            \begin{itemize}
+                \item Optimiser et rationaliser les dépenses télécoms
+            \end{itemize}
+        \end{itemize}
+    \end{frame}
+    \subsection{L'application AUDITELcom}
+    \begin{frame}{L'application AUDITELcom}
+        \begin{itemize}
+            \item Application de Gestion Financières des Télécoms\pause
+            \item Fonctionne en mode SaaS\pause
+            \item Multilingue\pause
+            \item \'Equipe de développement :
+                \begin{itemize}
+                    \item Romain \bsc{Auriac}
+                    \item Denis \bsc{Mallet}
+                \end{itemize}
+        \end{itemize}
+    \end{frame}
+    \subsection{Les outils à disposition}
+    \begin{frame}{Les outils à disposition}
+        \begin{itemize}
+            \item Poste personnel
+                \begin{itemize}
+                    \item Windows XP
+                    \item Eclipse
+                \end{itemize}\pause
+            \item Serveur de développement
+            \begin{itemize}
+                \item FreeBSD
+                \item SubVersioN pour le travail collaboratif
+                \item Apache/PHP/MySQL pour les tests
+            \end{itemize}
+        \end{itemize}
+    \end{frame}
+
+\section{Le travail effectué}
+    \subsection{L'analyse de l'existant}
+	\begin{frame}{Fonctionnement du système existant}
+		\begin{itemize}
+			\item Traductions dans une base de données 
+				\begin{itemize}
+					\item Un id et une langue $\Rightarrow$ une traduction
+				\end{itemize}
+				\begin{figure}
+					\centering
+						\includegraphics[width=3cm]{images/bdExistant.png}
+					\caption{Table de traductions}
+				\end{figure}
+				\pause
+			\item Traduction inexistante \\$\rightarrow$ API Google Translate\\~ ~ ~ $\rightarrow$ Stockage dans la base 
+		\end{itemize}
+	\end{frame}
+    \begin{frame}{Avantages et inconvénients de l'existant}
+        \begin{exampleblock}{Avantages}
+            \begin{itemize}
+                \item Utilisation d'une base de données
+                \item Convention de préfixe pour les ID\\
+                $\Rightarrow$ exemple: \texttt{LANG\_DATE}
+            \end{itemize}
+        \end{exampleblock}\pause
+        \begin{alertblock}{Inconvénients}
+            \begin{itemize}
+            \item Difficultés de recherches
+            \item Redondance d'informations
+            \end{itemize}
+        \end{alertblock}
+    \end{frame}
+
+    \begin{frame}{Les solutions}
+        \begin{itemize}
+            \item Pour la redondance et les variables
+                \begin{itemize}
+                    \item Un méta-langage
+                    \item Une nouvelle table
+                \end{itemize}\pause
+            \item Pour la recherche et la traduction
+                \begin{itemize}
+                    \item Un client lourd
+                \end{itemize}
+        \end{itemize}
+    \end{frame}
+    \subsection{Le méta-langage}
+    \begin{frame}{Les problèmes réglés avec le méta-langage}
+        \begin{itemize}
+            \item Redondance de traduction\\
+                $\Rightarrow$ \texttt{Ajouter une ligne\\ Ligne mobile\\ Type de ligne}\pause
+            \item Traduction de variables\\
+                $\Rightarrow$  \texttt{13 derniers mois}\pause
+            \item Pluriel ou Singulier ?\\
+                $\Rightarrow$ \texttt{13 derniers mois} ou \texttt{1 dernier mois}
+        \end{itemize}
+    \end{frame}
+    \begin{frame}{Le métalangage}
+    \begin{description}
+        \item[Constantes] Ajouter dans une valeur [TRANS\_CONSTANTE]
+        \pause
+        \item[Variables] Ajouter dans une valeur <nomVar>, appel avec \texttt{getTranslation(id, var1, var2,\ldots)}
+                    \pause
+        \item[Pluriel/singulier] Si variable numériques, dans une valeur (singulier|pluriel).
+    \end{description}
+\end{frame}
+\begin{frame}{Exemple d'utilisation}
+    \begin{description}
+        \item[ID\_RES] \texttt{TRANS\_GENERAL\_DATA}
+        \item[TranslatedText] \texttt{Données [TRANS\_GENERALES]}
+        \item[Affichage] \texttt{Données générales}
+    \end{description}
+    \hrulefill
+    \pause
+    \begin{description}
+        \item[ID\_RES]\texttt{TRANS\_NB\_RINGINGS}
+        \item[TranslatedText] \texttt{<nbSonneries> sonneri(e|es)}
+        \item[Affichage] \texttt{4 sonneries}
+    \end{description}
+\end{frame}
+
+    \subsection{Le client lourd : \texttt{MemoLanguage}}
+    \begin{frame} {Le client lourd: \texttt{MemoLanguage}}
+        \begin{itemize}
+            \item Le client lourd permet :
+                \begin{itemize}
+                    \item La recherche
+                    \item L'insertion de nouvelle constantes de traduction
+                    \item L'édition
+                    \item La traduction
+                \end{itemize}
+        \end{itemize}
+    \end{frame}
+    \begin{frame}{Le client lourd : \texttt{MemoLanguage}}
+            \begin{itemize}
+            \item Technologies choisis :
+        \begin{figure}
+            \includegraphics[width=4.0cm]{images/archiClientServeur.png}
+            \caption{Architecture client/serveur}\pause
+        \end{figure}\vspace{-10px}
+                \begin{itemize}
+                    \item Adobe AIR
+                    \item JavaScript
+                    \item PHP
+                    \item MySQL
+                \end{itemize}
+        \end{itemize}
+    \end{frame}
+    \subsection{Résultats obtenus}
+    \begin{frame}{Recherche}
+    	\only<1>{
+		\begin{figure}
+			\includegraphics[width=8.5cm]{images/searchRegex.jpg}
+			\caption{Recherche}
+		\end{figure}
+	}
+	\only<2>{
+		\hspace{68px}
+		\includegraphics[width=11.5cm]{images/searchRegex.jpg}
+	}
+    \end{frame}
+        \begin{frame}{Ajout de constante}
+    	\only<1>{
+		\begin{figure}
+			\includegraphics[width=8.5cm]{images/ajoutCst.jpg}
+			\caption{Ajout de constante}
+		\end{figure}
+	}
+	\only<2>{
+		\hspace{68px}
+		\includegraphics[width=11.5cm]{images/ajoutCst.jpg}
+	}
+    \end{frame}
+    \begin{frame}{\'Edition de constante}
+    \only<1>{
+		\begin{figure}
+			\includegraphics[width=8.5cm]{images/edition.jpg}
+			\caption{\'Edition de constante}
+		\end{figure}
+	}
+	\only<2>{
+		\hspace{68px}
+		\includegraphics[width=11.5cm]{images/edition.jpg}
+	}
+    \end{frame}
+        \begin{frame}{Traduction de constante}
+    \only<1>{
+		\begin{figure}
+			\includegraphics[width=8.5cm]{images/traduction.jpg}
+			\caption{Traduction de constante}
+		\end{figure}
+	}
+	\only<2>{
+		\hspace{68px}
+		\includegraphics[width=11.5cm]{images/traduction.jpg}
+	}
+    \end{frame}
+\section*{Conclusion}
+    \begin{frame}{Conclusion}
+        \begin{itemize}
+            \item Bilan technique
+                \begin{itemize}
+                    \item Apprentissage de Adobe AIR, Javascript
+                \end{itemize}
+                \pause
+            \item Bilan professionnel
+                \begin{itemize}
+                    \item Une première expérience enrichissante
+                    \item L'application continuera d'exister
+                    \item Le monde de l'entreprise différent de l'université
+                \end{itemize}
+                \pause
+            \item Bilan personnel
+                \begin{itemize}
+                    \item Confiance en soi
+                    \item Poursuite d'étude vers un master
+                \end{itemize}
+        \end{itemize}
+    \end{frame}
+    \begin{frame}{Projet professionnel}
+        \begin{itemize}
+            \item Devenir Analyste programmeur
+            \item Continuer les études\\
+            $\Rightarrow$ Plus de responsabilités\\
+            $\Rightarrow$ Meilleure évolution de carrière\\
+            $\Rightarrow$ Avidité de connaissances\\
+          \end{itemize}
+    \end{frame}
+	\begin{frame}{Merci de votre attention}
+		\begin{center}\vspace{30px}
+		Avez vous des questions ?	\newline
+			\includegraphics[width=3cm]{interrogation.jpg}
+		\end{center}
+	\end{frame}
+\end{document}

@@ -1,0 +1,256 @@
+% /solutions/conference-talks/conference-ornate-20min.fr.tex, 22/02/2006 De Sousa
+
+\documentclass{beamer}
+
+% Ce fichier est un exemple d'exposé
+
+% - pour des conférences,
+% - d'une durée approximative de 20 minutes,
+% - avec un style ornemental.
+
+
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% Traduction de Philippe De Sousa <philippejjg@free.fr>
+%
+% En principe, ce fichier peut être redistribué et/ou modifié conformément
+% aux termes de la GNU Public License, version 2.
+%
+% Cependant, ce fichier est supposé comme étant un "exemple-type" qui peut être modifié
+% selon vos propres besoins. Pour cette raison, si vous utilisez ce fichier en tant qu'
+% "exemple-type" et non spécifiquement pour le distribuer en tant que partie d'un
+% package ou programme, je vous donne la permission exceptionnelle de copier librement et
+% de modifier ce fichier et même d'effacer ce message de copyright.
+
+
+\mode<presentation> {
+  \usetheme{MarbugCustom}
+  % ou autre ...
+	
+  \setbeamercovered{invisible}
+  % ou autre chose (il est également possible de supprimer cette ligne)
+}
+
+
+\usepackage[french]{babel}
+% or autre comme par exemple \usepackage[english]{babel}
+
+\usepackage[latin1]{inputenc}
+% or autre
+
+\usepackage{graphicx}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{listings}
+% Or autre. Notez que le codage et la fonte doivent être assortis. Si T1
+% ne paraît pas très esthétique, essayer d'effacer la ligne contenant fontenc.
+
+\input{styles/listings.tex}
+\title[Refonte du système de traduction de AUDITELcom] % (facultatif, à utiliser uniquement si le titre de l'article est trop long)
+{Refonte du système de traduction de AUDITELcom}
+
+\subtitle {}
+
+\author[Antoine de \bsc{Roquemaurel}] % (facultatif, à utiliser seulement avec plusieurs auteurs)
+{Antoine de \bsc{Roquemaurel}}
+% - Composez les noms dans l'ordre dans lequel ils apparaîtrons dans l'article
+% - Utilisez la commande \inst{?} uniquement si les auteurs ont des affiliations
+%   différentes.
+
+\institute[Universités de Quelque Part et d'Ailleurs] % (facultatif mais généralement nécessaire)
+{
+  IUT Informatique\\
+  Université Paul Sabatier -- Toulouse III
+}
+% - Utilisez la commande \inst uniquement s'il y a plusieurs affectations
+% - Faîtes quelque chose de simple, personne ne s'intéresse à votre adresse
+
+\date[\today] % (facultatif, peut être une abréviation du nom de la conférence)
+{\today}
+% - Utilisez à la fois le nom de la conférence et son abréviation.
+% - N'a pas réellement d'importance pour l'assistance qui sera présente lors de la conférence,
+%   mais en a surtout pour les personnes (y compris vous-même) qui liront les transparents en ligne.
+
+\subject{Refonte du système de traduction de AUDITELcom}
+% Inséré uniquement dans la page d'information du fichier PDF. Peut être
+% supprimé.
+
+
+% Si vous avez un fichier nommé "université-logo-nomfichier.xxx", où xxx
+% est un format graphique accepté par latex ou pdflatex (comme par exemple .png),
+% alors vous pouvez insérer votre logo ainsi :
+
+% \pgfdeclareimage[height=0.5cm]{le-logo}{université-logo-nomfichier}
+% \logo{\pgfuseimage{le-logo}}
+
+
+
+% À supprimer si vous ne voulez pas que la table des matières apparaisse
+% au début de chaque sous-section :
+\AtBeginSection[] {
+  \begin{frame}<beamer>{Ligne directrice}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+% Si vous souhaitez recouvrir vos transparents un à un,
+% utilisez la commande suivante (pour plus d'info, voir la page 74 du manuel
+% d'utilisation de Beamer (version 3.06) par Till Tantau) :
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+
+\setbeamertemplate{footline}{
+	\leavevmode%
+	\hbox{\hspace*{-0.6cm}
+	\begin{beamercolorbox}[wd=.18\paperwidth,ht=2.2ex,dp=1ex,center,ignorebg]{author in head/foot}%
+		\usebeamerfont{}\hspace{17.5px}\vspace{-0.2cm}\includegraphics[height=1cm]{logo.jpg} %~~(\insertshortinstitute)
+	\end{beamercolorbox}%
+
+	\begin{beamercolorbox}[wd=.63\paperwidth,ht=2.25ex,dp=1ex,center]{section in head/foot}%
+		\usebeamerfont{section in head/foot}\includegraphics[height=1cm]{logoMemobox.png}~~~~~~~~~~~~~~~~~Refonte du système de traduction de AUDITELcom
+	\end{beamercolorbox}%
+
+	\begin{beamercolorbox}[wd=.23\paperwidth,ht=2.25ex,dp=1ex,right]{section in head/foot}%
+		\usebeamerfont{section in head/foot}\insertshortdate{}\hspace*{2em}
+		\insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+	\end{beamercolorbox}}%
+					\vskip0pt%
+}
+
+\begin{document}
+\begin{frame}
+  \titlepage
+\end{frame}
+\section{L'\'Etude de l'existant}
+\subsection{Le fonctionnement}
+\begin{frame}{La classe \texttt{TTranslator}}
+    \begin{itemize}
+        \item Appel avec un singleton
+        \item Méthode de traduction : \texttt{getTranslation(ID\_RES : string)}
+        \item Constantes en base de donnée
+        \item Traduction inexistante $\Rightarrow$ Appel de l'API Google Translate
+    \end{itemize}
+\end{frame}
+\begin{frame}{La base de données}
+    \begin{figure}
+        \centering
+        \input{images/bdExistant.tex}
+        \caption{Table RES\_Translations}
+    \end{figure}
+    \begin{description}
+        \item[ID\_RES] Nom de constante.
+        \item[Language] La langue en ISO-639 (fr, en ou es)
+        \item[TranslatedText] La valeur de traduction
+        \item[Valide] Traduction correct (0 ou 1)
+    \end{description}
+\end{frame}
+\begin{frame}{Exemple de traduction}
+\lstinputlisting[language=PHP, numbers=none, caption=Exemple d'appels de getTranslation]{images/appelTTranslatorGetTranslation.php}
+
+Affiche \texttt{Accueil} si la langue est française
+\end{frame}
+\subsection{Les problèmes}
+\begin{frame}{Le problème : les développeurs}
+    \begin{description}
+    \item[Redondance]
+         Beaucoup de constantes\\ $\Rightarrow$ Recherche difficile\\ $\Rightarrow$ Création d'une nouvelle constante plutôt que chercher son existante
+         \pause
+    \item[378 champs non valides] GoogleTranslate remplit la bd automatiquement \\
+    $\Rightarrow$ Beaucoup de champs non valide\\ $\Rightarrow$ Trop nombreux pour les valider\\$\Rightarrow$ Base de donnée altéré
+        \pause
+    \item[Beaucoup de ''phrases en dur``] Certains développeurs, plutôt que de créer une nouvelle constante, faisait passer une chaîne de caractère en paramètre
+    \end{description}
+\end{frame}
+\begin{frame}{Le problème : le système}
+    \begin{description}
+        \item[Base de données altéré] La base est devenue incontrôlable.
+        \pause
+        \item[Redondance] Des mots reviennent souvent dans des traductions et sont ainsi traduits des dizaines de fois.
+        \pause
+        \item[Variables] Problème en cas de valeurs variables dans une traduction
+    \end{description}
+\end{frame}
+\section{Les solutions proposés}
+\begin{frame}{Les Solutions}
+    \begin{description}
+        \item[Un métalangage] : Permettre d'inclure des constantes ou des variables
+        \item[Un outil externe] : Permettre la recherche, la traduction et accélérer le travail du développeur
+    \end{description}
+\end{frame}
+\subsection{Le nouveau moteur}
+\begin{frame}{Nouvelle base de données}
+    \begin{figure}
+        \centering
+        \input{images/bdNouvelle.tex}
+        \caption{Table RES\_dicoLanguage}
+    \end{figure}
+
+\end{frame}
+\begin{frame}{Le métalangage}
+    \begin{description}
+        \item[Constantes] Ajouter dans une valeur [TRANS\_CONSTANTE]
+        \pause
+        \item[Variables] Ajouter dans une valeur <nomVar>, appel avec \texttt{getTranslation(id, var1, var2,\ldots)}
+                    \pause
+        \item[Pluriel/singulier] Si variable numériques, dans une valeur (singulier|pluriel).
+                \pause
+        \item[Valeur longue ou courte] \texttt{\#SHORT\#} ou \texttt{\#LONG\#} dans l'ID. Si rien n'est précisé ou si la valeur est inexistante : valeur classique.
+    \end{description}
+\end{frame}
+\begin{frame}{Exemple d'utilisation}
+    \begin{description}
+        \item[ID\_RES]\texttt{Données [TRANS\_GENERAL\_DATA]}
+        \item[TranslatedText] \texttt{Données [TRANS\_GENERAL]}
+        				\lstinputlisting[language=PHP, numbers=none]{images/exempleConstantes.php}
+        \item[Affichage] \texttt{Données générales}
+    \end{description}
+    \hrulefill
+    \pause
+    \begin{description}
+        \item[ID\_RES]\texttt{Données [TRANS\_NB\_RINGINGS]}
+        \item[TranslatedText] \texttt{<nbSonneries> sonneri(e|es)}
+        				\lstinputlisting[language=PHP, numbers=none]{images/exemplePlurOrSing.php}	
+        \item[Affichage] \texttt{Données générales}
+    \end{description}
+\end{frame}
+\subsection{L'outil de traduction}
+\begin{frame}{Technologies choisis}
+        \textbf{Le client}:
+    \begin{description}
+        \item[Adobe AIR] Application native avec technologies Web
+        \item[JavaScript] Interroger le serveur -- Rechargement rapide.
+        \item[HTML/CSS] Contenu et mise en forme
+    \end{description}
+    \pause
+    \vspace{20px}
+    \textbf{Le serveur}:
+    \begin{description}
+        \item[PHP] Interroger la base de données
+        \item[MySQL] Base de donnée de AUDITELcom
+    \end{description}
+\end{frame}
+\begin{frame}{Résultats}
+    	\only<1>{
+		\begin{figure}
+			\includegraphics[width=8.5cm]{images/searchRegex.jpg}
+			\caption{Recherche}
+		\end{figure}
+	}
+	\only<2>{
+		\hspace{68px}
+		\includegraphics[width=11.5cm]{images/searchRegex.jpg}
+	}
+
+\end{frame}
+\section{Conclusion}
+\begin{frame}{Conclusion}
+    \begin{itemize}
+        \item Nouveau moteur plus robuste
+        \item MemoLanguage permet d'accélérer le travail des développeurs $\Rightarrow$ Il devrait y avoir moins d'ajout de constante inutiles
+        \item Le début d'intégration à montré que le système est viable
+    \end{itemize}
+\end{frame}
+\end{document}

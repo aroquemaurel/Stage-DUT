@@ -1,0 +1,100 @@
+\makeatletter
+\def\thickhrulefill{\leavevmode \leaders \hrule height 1ex \hfill \kern \z@}
+%% \chapter
+\def\@makechapterhead#1{%
+  \reset@font
+  \parindent \z@
+  \vspace*{10\p@}%
+  \hbox{%
+    \vbox{%
+      \advance\hsize by -2cm
+      \hrule height 0.4pt depth 0pt width \hsize
+      \par
+      \vskip 6pt%
+      \hspace{20pt}%
+      \parbox{420pt}{%
+        \LARGE \bfseries #1
+		}%
+      \par
+      \vskip 6pt%
+      \hspace{20pt}%
+      \hrule height 0.4pt depth 0pt width \hsize
+	  \vspace{-30pt}
+      }%
+    \vbox{%
+      \hsize=1.5cm%
+      \begin{tabular}{c}
+        \scshape \large \strut \@chapapp{} \\
+        \colorbox{black}{\vbox{\hbox{\vbox to 1mm{}}\hbox{
+			\color{white} \LARGE \bfseries \hspace{1mm}\thechapter\hspace{1mm}
+		}\hbox{\vbox to 2cm{}}}}%
+      \end{tabular}%
+      }%
+    }%
+  \vskip 20\p@
+	\setcounter{exemples}{0}
+}
+%% \chapter*
+\def\@makeschapterhead#1{%
+  \reset@font
+  \parindent \z@
+  \vspace*{10\p@}%
+  \hbox{%
+    \vbox{%
+      \advance\hsize by -0cm
+      \hrule height 0.4pt depth 0pt width \hsize
+      \par
+      \vskip 6pt%
+      \hspace{20pt}%
+      \parbox{420pt}{%
+        \LARGE \bfseries #1
+		}%
+      \par
+      \vskip 6pt%
+      \hspace{20pt}%
+      \hrule height 0.4pt depth 0pt width \hsize
+      }%
+    }%
+  \vskip 20\p@
+
+}
+
+\newlength{\sectiontitleindent}
+\newlength{\subsectiontitleindent}
+\newlength{\subsubsectiontitleindent}
+\setlength{\sectiontitleindent}{-1cm}
+\setlength{\subsectiontitleindent}{-.5cm}
+\setlength{\subsubsectiontitleindent}{-.25cm}
+
+\renewcommand{\section}{%
+	\@startsection%
+	{section}%
+	{1}%
+	{\sectiontitleindent}%
+	{-3.5ex plus -1ex minus -.2ex}%
+	{2.3ex plus.2ex}%
+	{\sectionfont\Large}
+}
+\renewcommand{\subsection}{%
+	\@startsection%
+	{subsection}%
+	{2}%
+	{\subsectiontitleindent}%
+	{-3.5ex plus -1ex minus -.2ex}%
+	{2.3ex plus.2ex}%
+	{\sectionfont\large}
+}
+
+\renewcommand{\subsubsection}{%
+	\@startsection%
+	{subsubsection}%
+	{3}%
+	{\subsubsectiontitleindent}%
+	{-3.5ex plus -1ex minus -.2ex}%
+	{2.3ex plus.2ex}%
+	{\sectionfont\normalsize}
+}
+
+\makeatother
+
+

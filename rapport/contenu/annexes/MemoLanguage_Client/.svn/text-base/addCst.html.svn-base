@@ -1,0 +1,38 @@
+<html>	
+<head>
+    <title>MemoLanguage - Ajouter une constante</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+	<link href="styles/global.css" rel="stylesheet" type="text/css"/>
+	<link href="styles/addCst.css" rel="stylesheet" type="text/css"/>
+
+	<script type="text/javascript" src="lib/AIRAliases.js"></script>
+	<script type="text/javascript" src="lib/util.js"></script>
+	<script type="text/javascript" src="lib/actionsFormulaire.js"></script>
+	<script type="text/javascript" src="lib/configuration.js"></script>
+	<script type="text/javascript" src="lib/traduction.js"></script>
+</head>
+<body>
+<div id="addCst">
+	<form method="post" >
+	   <p><label for="cst">ID</label> <input type="text" id="cst" class="fieldAddCstId" value="TRANS_" onblur="actionCapsLock()"/> <br />
+	   		Langue <select name="langue" id="langueAjout">
+	        		   <option value="fr">Français</option>
+	           			<option value="en">Anglais</option>
+	           			<option value="es" id="languees">Espagnol</option>
+	       			</select><br />
+	     Type <input type="radio" name="type" value="ITEM" id="typeItem"" /> <label for="typeItem">Item</label>
+	          <input type="radio" name="type" value="PHRA" id="typePhrase" checked=checked/> 
+	          														<label for="typePhrase">Phrase</label><br />
+	          
+	          <label for="valide">Valide</label>
+	          <input type="checkbox" name="valide" id="valide"/> <br />
+	          														
+	      <textarea cols="60" rows="4" id="valueCst"></textarea><br />
+	      <input type="button" value="Valider" onclick="actionValiderAjoutCst()"/> 
+	      <input type="button" value="Annuler" onclick="actionAnnulerAjoutCst()" />
+      </p>
+	</form>
+	<script type="text/javascript">document.getElementById('valueCst').value = getParam('value');</script>
+</div>
+</body>

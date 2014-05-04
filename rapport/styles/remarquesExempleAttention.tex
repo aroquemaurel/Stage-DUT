@@ -1,0 +1,29 @@
+\newcommand{\remarque}[1]{
+	\begin{center}
+	\medskip
+	\colorbox{remarque}{
+		\begin{minipage}{0.85\textwidth}\medskip\includegraphics[height=10px]{images/remarque.png} #1 \medskip\end{minipage}
+	}
+	\medskip
+	\end{center}
+}
+
+\newcounter{exemples}
+
+\newenvironment{exemple}[1]{
+   \vspace{-2mm}
+
+\refstepcounter{exemples}
+   \begin{center}
+	\medskip
+      \begin{minipage}{0.9\linewidth}
+}{%
+~
+      \end{minipage}
+   \end{center}~
+   \vspace{-2mm}
+}%
+
+\newcommand{\captionExemple}[1]{
+	\begin{center}{\bsc{Exemple} \thechapter.\arabic{exemples}~--~}#1\end{center}
+}

@@ -1,0 +1,62 @@
+\definecolor{gris1}{gray}{0.65}
+\definecolor{gris2}{gray}{0.5}
+\definecolor{gris3}{gray}{0.3}
+\definecolor{vert}{rgb}{0,0.4,0}
+\definecolor{bleu1}{rgb}{0,0,0.8}
+\definecolor{bleu2}{rgb}{0,0.2,0.6}
+\definecolor{bleu3}{rgb}{0,0.2,0.2}
+\definecolor{violet}{rgb}{0.1,0.5,0.1}
+
+\lstdefinelanguage{PHP}{%
+   morekeywords={%
+		private, public, class, function, \$this, parent, if, else,abstract, protected, extends, self, new, true, false, static,
+		while, foreach, do, exit, return, AND, OR, switch, case, break, require_once, for, echo, isset, array
+	},
+  sensitive=false,
+  morecomment=[s]{/*}{*/},
+  morecomment=[s]{/**}{*/},
+  morecomment=[l]{//},
+  morestring=[b]{'},
+  morestring=[b]{"}
+}
+\lstdefinelanguage{JavaScript}{%
+   morekeywords={%
+		var, function, if, else,true,false,this,new,
+		while, for, do, exit, return, AND, OR, switch, case, break
+	},
+  sensitive=false,
+  morecomment=[s]{/*}{*/},
+  morecomment=[s]{/**}{*/},
+  morecomment=[l]{//},
+  morestring=[b]{'},
+  morestring=[b]{"}
+}
+\lstdefinelanguage{XML}{%
+ %  morekeywords={%
+	%	var, function, if, else,true,false,this,new,
+	%	while, for, do, exit, return, AND, OR, switch, case, break
+%	},
+  sensitive=false,
+    morestring=[s]{<}{>}
+}
+\lstset{ % general style for listings
+   numbers=left
+   , literate={é}{{e}}1 %{è}{{e}}1 {à}{{a}}1 {ê}{{e}}1 {É}{{E}}1 {ô}{{o}}1% {^}{{\^{}}}1 {ç}{{c}}1
+%	, extendedchars=\true
+   , tabsize=2
+   , frame=single
+   , breaklines=true
+   , basicstyle=\ttfamily
+   , numberstyle=\tiny\ttfamily
+   , framexleftmargin=0mm
+   , xleftmargin=0mm
+   , captionpos=b
+	, keywordstyle=\color{gris3}\textbf
+	, stringstyle=\color{gris2}
+	, commentstyle=\color{gris1}\textit
+	, showstringspaces=false
+	, extendedchars=true
+	, mathescape=false
+}
+%	\lstlistoflistings
+%	\addcontentsline{toc}{part}{List of code examples}

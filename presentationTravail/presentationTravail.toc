@@ -1,0 +1,9 @@
+\beamer@endinputifotherversion {3.18pt}
+\select@language {french}
+\beamer@sectionintoc {1}{L'\'etude de l'existant}{2}{0}{1}
+\beamer@subsectionintoc {1}{1}{Le fonctionnement}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{Les probl\`emes}{6}{0}{1}
+\beamer@sectionintoc {2}{Les solutions propos\'es}{12}{0}{2}
+\beamer@subsectionintoc {2}{1}{Le nouveau moteur}{14}{0}{2}
+\beamer@subsectionintoc {2}{2}{L'outil de traduction}{21}{0}{2}
+\beamer@sectionintoc {3}{Conclusion}{25}{0}{3}

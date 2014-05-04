@@ -1,0 +1,25 @@
+\usepackage{lib/datatool}
+\newcommand{\sortitem}[3]{%
+	\DTLnewrow{list}%
+	\DTLnewdbentry{list}{nom}{#1}%
+	\DTLnewdbentry{list}{page}{#2}%
+	\DTLnewdbentry{list}{definition}{#3}%
+}
+
+\newenvironment{sortedlist}%
+{%
+\DTLifdbexists{list}{\DTLcleardb{list}}{\DTLnewdb{list}}%
+}%
+{%
+\DTLsort{nom,page,definition}{list}%a
+	\DTLforeach*{list}{\theNom=nom,\laPage=page,\theDefinition=definition}{%
+	\paragraph{\theNom}\hspace{-8px}(p \laPage)~--~\theDefinition\hfill 
+}%
+}
+\newwrite\glossaireVar
+\openout\glossaireVar=glossaire
+\write\glossaireVar{\noexpand}
+\newcommand{\glo}[3]{
+\policeGlossaire{\hspace{-4px}#1\hspace{-6px}}
+	\write\glossaireVar{\noexpand\sortitem{#2}{\thepage}{#3}}
+}
